@@ -1,0 +1,63 @@
+<?php
+
+if (!function_exists('easy_invoice_get_all_texts')) {
+	function easy_invoice_get_all_texts()
+	{
+		return apply_filters('easy_invoice_translatable_texts', [
+			'invoice' => __('Invoice', 'easy-invoice'),
+			'invoices' => __('Invoices', 'easy-invoice'),
+			'from' => __('From', 'easy-invoice'),
+			'to' => __('To', 'easy-invoice'),
+			'invoice_number' => __('Invoice Number', 'easy-invoice'),
+			'order_number' => __('Order Number', 'easy-invoice'),
+			'invoice_date' => __('Invoice Date', 'easy-invoice'),
+			'due_date' => __('Due Date', 'easy-invoice'),
+			'total_due' => __('Total Due', 'easy-invoice'),
+			'quantity' => __('Qty', 'easy-invoice'),
+			'service' => __('Service', 'easy-invoice'),
+			'rate' => __('Rate/Price', 'easy-invoice'),
+			'adjust' => __('Adjust', 'easy-invoice'),
+			'sub_total' => __('Sub Total', 'easy-invoice'),
+			'total' => __('Total', 'easy-invoice'),
+			'tax' => __('Tax', 'easy-invoice'),
+			'discount' => __('Discount', 'easy-invoice'),
+			'page' => __('Page', 'easy-invoice'),
+			'print' => __('Print', 'easy-invoice'),
+			'download_as_pdf' => __('Download as PDF', 'easy-invoice'),
+			'send_email' => __('Send Email', 'easy-invoice'),
+			'pay_now_button' => __('Pay Now', 'easy-invoice'),
+			'proceed_to_payment_button' => __('Proceed to payment', 'easy-invoice'),
+			'payment_gateway_information' => __('Invoice Payment Gateway', 'easy-invoice'),
+			'quote' => __('Quote', 'easy-invoice'),
+			'quotes' => __('Quotes', 'easy-invoice'),
+			'quote_number' => __('Quote Number', 'easy-invoice'),
+			'accept_quote' => __('Accept Quote', 'easy-invoice'),
+			'decline_quote' => __('Decline Quote', 'easy-invoice'),
+			'reason_for_decline_quote' => __('Reason for declining', 'easy-invoice'),
+			'quote_amount' => __('Quote Amount', 'easy-invoice'),
+			'valid_until_date' => __('Valid Until Date', 'easy-invoice'),
+			'quote_date' => __('Quote Date', 'easy-invoice'),
+
+		]);
+
+	}
+}
+
+
+if (!function_exists('easy_invoice_get_text')) {
+
+	function easy_invoice_get_text($text_id)
+	{
+		$all_texts = easy_invoice_get_all_texts();
+
+		if (isset($all_texts[$text_id])) {
+
+			$option_id = 'easy_invoice_text_' . sanitize_text_field($text_id);
+
+			return get_option($option_id, $all_texts[$text_id]);
+		}
+		return '';
+	}
+}
+
+
