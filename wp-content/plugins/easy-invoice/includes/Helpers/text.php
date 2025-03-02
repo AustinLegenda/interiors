@@ -28,15 +28,15 @@ if (!function_exists('easy_invoice_get_all_texts')) {
 			'pay_now_button' => __('Pay Now', 'easy-invoice'),
 			'proceed_to_payment_button' => __('Proceed to payment', 'easy-invoice'),
 			'payment_gateway_information' => __('Invoice Payment Gateway', 'easy-invoice'),
-			'quote' => __('Quote', 'easy-invoice'),
-			'quotes' => __('Quotes', 'easy-invoice'),
-			'quote_number' => __('Quote Number', 'easy-invoice'),
-			'accept_quote' => __('Accept Quote', 'easy-invoice'),
-			'decline_quote' => __('Decline Quote', 'easy-invoice'),
+			'quote' => __('Estimate', 'easy-invoice'),
+			'quotes' => __('Estimates', 'easy-invoice'),
+			'quote_number' => __('Estimate Number', 'easy-invoice'),
+			'accept_quote' => __('Accept Estimate', 'easy-invoice'),
+			'decline_quote' => __('Decline Estimate', 'easy-invoice'),
 			'reason_for_decline_quote' => __('Reason for declining', 'easy-invoice'),
-			'quote_amount' => __('Quote Amount', 'easy-invoice'),
+			'quote_amount' => __('Estimate Amount', 'easy-invoice'),
 			'valid_until_date' => __('Valid Until Date', 'easy-invoice'),
-			'quote_date' => __('Quote Date', 'easy-invoice'),
+			'quote_date' => __('Estimate Date', 'easy-invoice'),
 
 		]);
 

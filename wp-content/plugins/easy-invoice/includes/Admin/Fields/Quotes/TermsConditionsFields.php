@@ -23,7 +23,7 @@ class TermsConditionsFields extends Base
 					'hr' => array(),
 					'p' => array(),
 				),
-				'default' => get_option('easy_invoice_quote_terms_conditions', 'This quote has a fixed price. Upon acceptance, we kindly ask for a 25% deposit prior to initiating the work.')
+				'default' => get_option('easy_invoice_quote_terms_conditions', 'This estimate has a fixed price. Upon acceptance, we kindly ask for a 25% deposit prior to initiating the work.')
 			],
 
 		];

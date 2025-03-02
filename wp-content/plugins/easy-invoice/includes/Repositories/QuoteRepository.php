@@ -109,7 +109,7 @@ class QuoteRepository
 	{
 		$terms = get_post_meta($this->quote_id, 'terms_and_conditions', true);
 
-		return !$terms ? get_option('easy_invoice_quote_terms_conditions', 'This quote has a fixed price. Upon acceptance, we kindly ask for a 25% deposit prior to initiating the work.') : $terms;
+		return !$terms ? get_option('easy_invoice_quote_terms_conditions', 'This estimate has a fixed price. Upon acceptance, we kindly ask for a 25% deposit prior to initiating the work.') : $terms;
 	}
 
 	public function get_taxable_amount()

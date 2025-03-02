@@ -18,13 +18,13 @@ class QuoteFields extends Base
 		return [
 			'quote_status' => [
 				'type' => 'select',
-				'title' => __('Quote Status', 'easy-invoice'),
+				'title' => __('Estimate Status', 'easy-invoice'),
 				'options' => easy_invoice_get_quote_statuses(),
 
 			],
 			'quote_number' => [
 				'type' => 'text',
-				'title' => __('Quote Number', 'easy-invoice'),
+				'title' => __('Estimate Number', 'easy-invoice'),
 				'default' => easy_invoice_get_quote_number(),
 			],
 			'created_date' => [

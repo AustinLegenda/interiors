@@ -20,7 +20,7 @@ class QuoteSettings extends Setting_Base
 	public function __construct()
 	{
 		$this->id = 'ei_quote';
-		$this->label = __('Quote', 'easy-invoice');
+		$this->label = __('Estimates', 'easy-invoice');
 
 		parent::__construct();
 	}

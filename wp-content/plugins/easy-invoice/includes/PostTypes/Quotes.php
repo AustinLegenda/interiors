@@ -16,17 +16,17 @@ class Quotes
 		$permalink = $permalink == '' ? Constant::QUOTE_POST_TYPE : sanitize_text_field($permalink);
 
 		$labels = array(
-			'name' => __('Quotes', 'easy-invoice'),
-			'singular_name' => __('Quote', 'easy-invoice'),
-			'add_new' => __('Add New quote', 'easy-invoice'),
-			'add_new_item' => __('Add New quote', 'easy-invoice'),
-			'edit_item' => __('Edit quote', 'easy-invoice'),
-			'new_item' => __('New quote', 'easy-invoice'),
-			'all_items' => __('All Quotes', 'easy-invoice'),
-			'view_item' => __('View quote', 'easy-invoice'),
-			'search_items' => __('Search quote', 'easy-invoice'),
-			'not_found' => __('No Quotes found', 'easy-invoice'),
-			'not_found_in_trash' => __('No Quotes found in the Trash', 'easy-invoice'),
+			'name' => __('Estimates', 'easy-invoice'),
+			'singular_name' => __('Estimate', 'easy-invoice'),
+			'add_new' => __('Add New Estimate', 'easy-invoice'),
+			'add_new_item' => __('Add New Estimate', 'easy-invoice'),
+			'edit_item' => __('Edit Estimate', 'easy-invoice'),
+			'new_item' => __('New Estimate', 'easy-invoice'),
+			'all_items' => __('All Estimate', 'easy-invoice'),
+			'view_item' => __('View Estimate', 'easy-invoice'),
+			'search_items' => __('Search Estimates', 'easy-invoice'),
+			'not_found' => __('No Estimates found', 'easy-invoice'),
+			'not_found_in_trash' => __('No Estimates found in the Trash', 'easy-invoice'),
 			'parent_item_colon' => '',
 		);
 

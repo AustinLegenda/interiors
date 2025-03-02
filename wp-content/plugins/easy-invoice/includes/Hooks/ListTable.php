@@ -54,7 +54,7 @@ class ListTable
 		}
 		$post_id = isset($_REQUEST['post']) ? intval(sanitize_text_field($_REQUEST['post'])) : false;
 		if (!$post_id) {
-			wp_die(__('No quote or invoice to duplicate!', 'easy-invoice'));
+			wp_die(__('No estimate or invoice to duplicate!', 'easy-invoice'));
 		}
 		$nonce = isset($_REQUEST['_wpnonce']) ? $_REQUEST['_wpnonce'] : false;
 		if (!wp_verify_nonce($nonce, 'easy_invoice_clone_quote_and_invoice-' . $post_id)) {
@@ -63,7 +63,7 @@ class ListTable
 
 		$post = get_post($post_id);
 		if (!$post || !in_array($post->post_type, array(Constant::QUOTE_POST_TYPE, Constant::INVOICE_POST_TYPE))) {
-			wp_die(__('Creation failed, could not find original invoice or quote: ', 'easy-invoice') . $post_id);
+			wp_die(__('Creation failed, could not find original invoice or estimate: ', 'easy-invoice') . $post_id);
 		}
 
 		$args = array(
@@ -261,7 +261,7 @@ class ListTable
 	{
 
 		unset($columns['date']);
-		$columns['quote_number'] = __('Quote Number', 'easy-invoice');
+		$columns['quote_number'] = __('Estimate Number', 'easy-invoice');
 		$columns['client'] = __('Client', 'easy-invoice');
 		$columns['status'] = __('Status', 'easy-invoice');
 		$columns['valid_date'] = __('Valid Date', 'easy-invoice');

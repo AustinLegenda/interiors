@@ -37,7 +37,7 @@ class Quote
 			__('Client Detail', 'easy-invoice'), array($this, 'client_settings'), Constant::QUOTE_POST_TYPE, 'side', 'low');
 
 		add_meta_box('easy-invoice-quote-details',
-			__('Quote Details', 'easy-invoice'), array($this, 'quote_details'), Constant::QUOTE_POST_TYPE, 'side', 'low');
+			__('Estimate Details', 'easy-invoice'), array($this, 'quote_details'), Constant::QUOTE_POST_TYPE, 'side', 'low');
 
 		add_meta_box('easy-invoice-currency',
 			__('Currency', 'easy-invoice'), array($this, 'currency_settings'), Constant::QUOTE_POST_TYPE, 'side', 'low');
@@ -46,7 +46,7 @@ class Quote
 			__('Tax', 'easy-invoice'), array($this, 'tax_settings'), Constant::QUOTE_POST_TYPE, 'side', 'low');
 
 		add_meta_box('easy-invoice-quote-log',
-			__('Quote Log', 'easy-invoice'), array($this, 'quote_log'), Constant::QUOTE_POST_TYPE, 'side', 'low');
+			__('Estimate Log', 'easy-invoice'), array($this, 'quote_log'), Constant::QUOTE_POST_TYPE, 'side', 'low');
 
 
 		add_action('post_submitbox_misc_actions', array($this, 'before_save_post'));

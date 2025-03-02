@@ -14,9 +14,9 @@
                 // Quote block
                 foreach ($details_data as $details) {
                     if ($details['label'] === easy_invoice_get_text('quote_number')) {
-                        echo '<div class="quote-number lei-detail"><strong>Quote Number:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="quote-number lei-detail"><strong>Estimate Number:</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('quote_date')) {
-                        echo '<div class="quote-date lei-detail"><strong>Quote Date:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="quote-date lei-detail"><strong>Estimate Date:</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('valid_until_date')) {
                         echo '<div class="valid-until lei-detail"><strong>Valid Until Date:</strong> ' . esc_html($details['value']) . '</div>';
                     }
