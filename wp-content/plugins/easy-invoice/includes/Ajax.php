@@ -165,8 +165,7 @@ class Ajax
 		easy_invoice_load_template('parts.message-page',
 			array(
 				'message_text' => easy_invoice_accepted_quote_message(),
-				'message_title' => __('Success', 'easy-invoice'),
-				'message_emoji' => "😊"
+				'message_title' => __('Success', 'easy-invoice')
 			)
 		);
 		exit;
@@ -214,8 +213,7 @@ class Ajax
 		easy_invoice_load_template('parts.message-page',
 			array(
 				'message_text' => easy_invoice_declined_quote_message(),
-				'message_title' => __('Declined', 'easy-invoice'),
-				'message_emoji' => "😔"
+				'message_title' => __('Declined', 'easy-invoice')
 			)
 		);
 		exit;

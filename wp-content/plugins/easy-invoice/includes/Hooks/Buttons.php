@@ -9,7 +9,7 @@ class Buttons
 	public function __construct()
 	{
 
-		//add_action('easy_invoice_content', array($this, 'proceed_to_payment_button'), 24);
+		add_action('easy_invoice_content', array($this, 'proceed_to_payment_button'), 31);
 		add_action('easy_invoice_content', array($this, 'proceed_to_payment_button'), 44);
 	}
 
