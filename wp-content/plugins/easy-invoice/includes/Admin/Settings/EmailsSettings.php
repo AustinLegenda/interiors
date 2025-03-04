@@ -138,7 +138,8 @@ class EmailsSettings extends Setting_Base
 					'allow-html' => true,
 					'editor_settings' => array(
 						'tinymce' => array(
-							'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo',
+							'toolbar1' => 'bold,italic,underline,link,unlink,bullist,numlist,undo,redo',
+							'wpautop' => true, // line breaks
 						),
 					),
 					'allowed_html' => self::email_content_allowed_html(),

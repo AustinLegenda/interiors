@@ -26,8 +26,8 @@
                 foreach ($details_data as $details) {
                     if ($details['label'] === easy_invoice_get_text('invoice_number')) {
                         echo '<div class="invoice-number lei-detail"><strong>Invoice Number:</strong> ' . esc_html($details['value']) . '</div>';
-					/*} elseif ($details['label'] === easy_invoice_get_text('order_number')) { // Added Purchase Order
-                        echo '<div class="order-number lei-detail"><strong>Purchase Order:</strong> ' . esc_html($details['value']) . '</div>';*/
+					} elseif ($details['label'] === easy_invoice_get_text('order_number')) { // Added Purchase Order
+                        echo '<div class="order-number lei-detail"><strong>Work Order:</strong> ' . esc_html($details['value']) . '</div>';
 					} elseif ($details['label'] === easy_invoice_get_text('invoice_date')) {
                         echo '<div class="invoice-date lei-detail"><strong>Invoice Date:</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('due_date')) {
