@@ -114,6 +114,8 @@ if (!function_exists('easy_invoice_smart_tags_for_invoice')) {
 
 		$quote = new QuoteRepository($object_id);
 
+		$post_title = get_the_title($object_id); //added
+
 		$today = current_time('timestamp');
 
 		$due_and_valid_date = get_post_type($object_id) != Constant::QUOTE_POST_TYPE ? $invoice->get_due_date() : $quote->get_valid_until();
@@ -132,13 +134,15 @@ if (!function_exists('easy_invoice_smart_tags_for_invoice')) {
 				'home_url' => get_home_url(),
 				'invoice_number' => $invoice->get_invoice_number(),
 				'quote_number' => $quote->get_quote_number(),
+				'quote_invoice_title' => $post_title, // added
 				'client_name' => $client_name,
 				'invoice_permalink' => get_permalink($object_id),
 				'quote_permalink' => get_permalink($object_id),
 				'due_date' => $due_and_valid_date,
 				'total_due' => easy_invoice_get_price($due_amount, '', $object_id),
 				'current_date' => date_i18n(get_option('date_format'), (int)current_time('timestamp')),
-				'is_was' => $is_was
+				'is_was' => $is_was,
+				
 			),
 			$object_id
 		);
@@ -153,6 +157,7 @@ if (!function_exists('easy_invoice_available_smart_tags_for_invoice')) {
 				'home_url' => __("Website URL", 'easy-invoice'),
 				'invoice_number' => __("Invoice number", 'easy-invoice'),
 				'quote_number' => __("Quote number", 'easy-invoice'),
+				'quote_invoice_title' => __("Title of the invoice or quote", 'easy-invoice'), // Added
 				'client_name' => __("Name of the client on invoice", 'easy-invoice'),
 				'invoice_permalink' => __("Permalink of the invoice", 'easy-invoice'),
 				'quote_permalink' => __("Permalink of the quote", 'easy-invoice'),
