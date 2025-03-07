@@ -21,7 +21,7 @@ add_filter('template_include', function ($template) {
       $custom_template = get_stylesheet_directory() . '/single-estimate.php';
       if (file_exists($custom_template)) {
           return $custom_template;
-      }
+      } 
   }
   return $template;
 });
