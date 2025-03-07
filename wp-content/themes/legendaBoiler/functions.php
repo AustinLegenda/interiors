@@ -1,31 +1,4 @@
 <?php
-
-add_action('init', function() {
-  $to = "austin.allent@gmail.com"; // Change to your Gmail
-  $subject = "Test Email from WordPress";
-  $message = "This is a test email sent using wp_mail().";
-  $headers = array('Content-Type: text/html; charset=UTF-8', 'From: Austin <austin@legenda.co>');
-
-  $sent = wp_mail($to, $subject, $message, $headers);
-
-  if ($sent) {
-      error_log("DEBUG: WordPress test email successfully sent.");
-  } else {
-      error_log("ERROR: WordPress test email failed.");
-  }
-}); 
-
-
-add_filter('template_include', function ($template) {
-  if (is_singular('estimate')) {
-      $custom_template = get_stylesheet_directory() . '/single-estimate.php';
-      if (file_exists($custom_template)) {
-          return $custom_template;
-      } 
-  }
-  return $template;
-}); 
-
 define('__ROOT__', dirname(dirname(__FILE__)));
 require_once(__ROOT__ . '/legendaBoiler/scripts/enqueue.php');
 require_once(__ROOT__ . '/legendaBoiler/scripts/ajax/folio-filter.php');
