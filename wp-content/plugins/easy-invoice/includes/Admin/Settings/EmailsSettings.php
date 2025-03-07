@@ -103,8 +103,8 @@ class EmailsSettings extends Setting_Base
 			'h4' => array('style' => array()),
 			'h5' => array('style' => array()),
 			'h6' => array('style' => array()),
-			'ul' => array('style' => array()),
-			'ol' => array('style' => array()),
+			'ul' => array('style' => array()), 
+			'ol' => array('style' => array()), 
 			'li' => array('style' => array())
 		);
 	}
@@ -140,13 +140,9 @@ class EmailsSettings extends Setting_Base
 					'allow-html' => true,
 					'editor_settings' => array(
 						'tinymce' => array(
-							'toolbar1' => 'bold,italic,underline,link,unlink,bullist,numlist,undo,redo',
-							'wpautop' => true, // Enables auto-paragraphs
-							'forced_root_block' => 'p', // Ensures paragraphs instead of line breaks
-							'convert_newlines_to_brs' => true, // Ensures new lines convert to <br>
+							'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo',
 						),
 					),
-
 					'allowed_html' => self::email_content_allowed_html(),
 					'custom_attributes' => array(
 						'size' => 70
@@ -172,6 +168,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else if ('quote_available' === $current_section) {
 			$settings = array(
 				array(
@@ -222,6 +219,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else if ('payment_received' === $current_section) {
 			$settings = array(
 				array(
@@ -272,6 +270,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else {
 
 			$settings = array(
@@ -309,11 +308,10 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		}
 
 
-		add_filter('wp_mail_content_type', function () {
-			return "text/html";
-		});
+		return apply_filters('easy_invoice_get_settings_' . $this->id, $settings, $current_section);
 	}
 }
