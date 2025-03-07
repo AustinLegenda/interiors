@@ -17,9 +17,13 @@ class Editor
 			$settings = array(
 				'textarea_name' => $field_name,
 				'tinymce' => array(
-					'toolbar1' => 'formatselect, bold,italic,underline, blockquote, strikethrough, bullist, numlist, separator,alignleft,aligncenter,alignright,separator,link,unlink,undo,redo',
+					'toolbar1' => 'formatselect, bold,italic,underline, blockquote, strikethrough, bullist,numlist,separator,alignleft,aligncenter,alignright,separator,link,unlink,undo,redo',
 					'block_formats' => 'Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6',
-					'height' => 300, // Adjust the height if needed
+					'height' => 300,
+					'valid_elements' => '*[*]', //Allows all elements and attributes
+					'extended_valid_elements' => 'br,p,strong,em,a[href|target|rel],ul,ol,li,h1,h2,h3,h4,h5,h6,span,div,blockquote,del,ins,code,img[src|height|width|alt|title]',
+					'wpautop' => false, //Prevents WordPress from auto-wrapping content in <p>
+					'forced_root_block' => 'p', //Ensures proper paragraph formatting
 				),
 				'editor_height' => 150, // In pixels, takes precedence and has no default value
 			);
@@ -63,6 +67,7 @@ class Editor
 			'h6' => array(),
 		);
 
-		return wp_kses($raw_value, $allowed_html);
+		return wpautop(wp_kses_post($raw_value));
+
 	}
 }

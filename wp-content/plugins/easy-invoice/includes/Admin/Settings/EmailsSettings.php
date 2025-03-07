@@ -102,10 +102,7 @@ class EmailsSettings extends Setting_Base
 			'h3' => array('style' => array()),
 			'h4' => array('style' => array()),
 			'h5' => array('style' => array()),
-			'h6' => array('style' => array()),
-			'ul' => array('style' => array()),
-			'uo' => array('style' => array()),
-			'ui' => array('style' => array())
+			'h6' => array('style' => array())
 		);
 
 	}
@@ -131,7 +128,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_invoice_available_email_subject_to_client',
 					'type' => 'text',
-					'default' => DefaultEmailMessages::get_invoice_available_subject_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_invoice_available_subject_to_client()),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -148,7 +145,7 @@ class EmailsSettings extends Setting_Base
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => DefaultEmailMessages::get_invoice_available_message_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_invoice_available_message_to_client()),
 				),
 				array(
 					'title' => '',
@@ -182,7 +179,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_quote_available_email_subject_to_client',
 					'type' => 'text',
-					'default' => DefaultEmailMessages::get_quote_available_subject_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_quote_available_subject_to_client()),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -199,7 +196,7 @@ class EmailsSettings extends Setting_Base
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => DefaultEmailMessages::get_quote_available_message_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_quote_available_message_to_client()),
 				),
 				array(
 					'title' => '',
@@ -233,7 +230,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_payment_received_email_subject_to_client',
 					'type' => 'text',
-					'default' => DefaultEmailMessages::get_payment_received_subject_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_payment_received_subject_to_client()),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -250,7 +247,7 @@ class EmailsSettings extends Setting_Base
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => DefaultEmailMessages::get_payment_received_message_to_client(),
+					'default' => wpautop(DefaultEmailMessages::get_payment_received_message_to_client()),
 				),
 				array(
 					'title' => '',

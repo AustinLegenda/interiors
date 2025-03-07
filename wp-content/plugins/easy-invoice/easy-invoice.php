@@ -51,4 +51,16 @@ if (!function_exists('easy_invoice')) {
 	}
 }
 
+add_filter('wp_kses_allowed_html', function ($tags, $context) {
+    if ($context === 'post') {
+        $tags['br'] = array();
+        $tags['p'] = array();
+        $tags['ul'] = array();
+        $tags['ol'] = array();
+        $tags['li'] = array();
+    }
+    return $tags;
+}, 10, 2);
+
+
 easy_invoice();
