@@ -102,11 +102,9 @@ class EmailsSettings extends Setting_Base
 			'h3' => array('style' => array()),
 			'h4' => array('style' => array()),
 			'h5' => array('style' => array()),
-			'h6' => array('style' => array()),
-			'ul' => array(),
-			'ol' => array(),
-			'li' => array(),
+			'h6' => array('style' => array())
 		);
+
 	}
 
 	/**
@@ -130,8 +128,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_invoice_available_email_subject_to_client',
 					'type' => 'text',
-					'default' => wpautop(DefaultEmailMessages::get_invoice_available_message_to_client()),
-
+					'default' => DefaultEmailMessages::get_invoice_available_subject_to_client(),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -141,18 +138,14 @@ class EmailsSettings extends Setting_Base
 					'allow-html' => true,
 					'editor_settings' => array(
 						'tinymce' => array(
-							'toolbar1' => 'bold,italic,underline,link,unlink,bullist,numlist,undo,redo',
-							'wpautop' => true, // Ensures Enter creates new paragraphs
-							'forced_root_block' => 'p', // Forces TinyMCE to wrap text in <p> tags
-							'convert_newlines_to_brs' => true, // Ensures line breaks are converted
+							'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo',
 						),
 					),
 					'allowed_html' => self::email_content_allowed_html(),
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => wpautop(DefaultEmailMessages::get_invoice_available_message_to_client()),
-
+					'default' => DefaultEmailMessages::get_invoice_available_message_to_client(),
 				),
 				array(
 					'title' => '',
@@ -173,6 +166,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else if ('quote_available' === $current_section) {
 			$settings = array(
 				array(
@@ -185,8 +179,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_quote_available_email_subject_to_client',
 					'type' => 'text',
-					'default' => wpautop(DefaultEmailMessages::get_quote_available_message_to_client()),
-
+					'default' => DefaultEmailMessages::get_quote_available_subject_to_client(),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -203,7 +196,7 @@ class EmailsSettings extends Setting_Base
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => wpautop(DefaultEmailMessages::get_quote_available_message_to_client()),
+					'default' => DefaultEmailMessages::get_quote_available_message_to_client(),
 				),
 				array(
 					'title' => '',
@@ -224,6 +217,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else if ('payment_received' === $current_section) {
 			$settings = array(
 				array(
@@ -236,7 +230,7 @@ class EmailsSettings extends Setting_Base
 					'title' => __('Email Subject', 'easy-invoice'),
 					'id' => 'easy_invoice_email_payment_received_email_subject_to_client',
 					'type' => 'text',
-					'default' => wpautop(DefaultEmailMessages::get_payment_received_subject_to_client()),
+					'default' => DefaultEmailMessages::get_payment_received_subject_to_client(),
 				),
 				array(
 					'title' => __('Email Message', 'easy-invoice'),
@@ -253,7 +247,7 @@ class EmailsSettings extends Setting_Base
 					'custom_attributes' => array(
 						'size' => 70
 					),
-					'default' => wpautop(DefaultEmailMessages::get_payment_received_message_to_client()),
+					'default' => DefaultEmailMessages::get_payment_received_message_to_client(),
 				),
 				array(
 					'title' => '',
@@ -274,6 +268,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		} else {
 
 			$settings = array(
@@ -311,6 +306,7 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
+
 		}
 
 
