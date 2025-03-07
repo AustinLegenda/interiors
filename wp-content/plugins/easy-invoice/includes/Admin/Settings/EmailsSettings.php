@@ -102,7 +102,10 @@ class EmailsSettings extends Setting_Base
 			'h3' => array('style' => array()),
 			'h4' => array('style' => array()),
 			'h5' => array('style' => array()),
-			'h6' => array('style' => array())
+			'h6' => array('style' => array()),
+			'ul' => array('style' => array()),
+			'uo' => array('style' => array()),
+			'ui' => array('style' => array())
 		);
 
 	}
