@@ -312,6 +312,8 @@ class EmailsSettings extends Setting_Base
 		}
 
 
-		return apply_filters('easy_invoice_get_settings_' . $this->id, $settings, $current_section);
-	}
+		add_filter('wp_mail_content_type', function() {
+			return "text/html";
+		});
+	}		
 }
