@@ -24,8 +24,7 @@ add_filter('template_include', function ($template) {
       } 
   }
   return $template;
-});
-
+}); 
 
 define('__ROOT__', dirname(dirname(__FILE__)));
 require_once(__ROOT__ . '/legendaBoiler/scripts/enqueue.php');
