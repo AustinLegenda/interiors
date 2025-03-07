@@ -102,9 +102,11 @@ class EmailsSettings extends Setting_Base
 			'h3' => array('style' => array()),
 			'h4' => array('style' => array()),
 			'h5' => array('style' => array()),
-			'h6' => array('style' => array())
+			'h6' => array('style' => array()),
+			'ul' => array(),
+			'ol' => array(),
+			'li' => array(),
 		);
-
 	}
 
 	/**
@@ -142,19 +144,10 @@ class EmailsSettings extends Setting_Base
 							'wpautop' => true, // line breaks
 						),
 					),
-					'allowed_html' => array(
-						'br' => array(),
-						'&nbsp;' => array(),
-						'em' => array(),
-						'strong' => array(), 
-						'p' => array(),
-						'ul' => array(),
-						'li' => array(),
-						'a' => array('href'),
-					),
+					'allowed_html' => self::email_content_allowed_html(),
 					'custom_attributes' => array(
 						'size' => 70
-				), 
+					),
 					'default' => DefaultEmailMessages::get_invoice_available_message_to_client(),
 				),
 				array(
@@ -176,7 +169,6 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
-
 		} else if ('quote_available' === $current_section) {
 			$settings = array(
 				array(
@@ -227,7 +219,6 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
-
 		} else if ('payment_received' === $current_section) {
 			$settings = array(
 				array(
@@ -278,7 +269,6 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
-
 		} else {
 
 			$settings = array(
@@ -316,7 +306,6 @@ class EmailsSettings extends Setting_Base
 				),
 
 			);
-
 		}
 
 
