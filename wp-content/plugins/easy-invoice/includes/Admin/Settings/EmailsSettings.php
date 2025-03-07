@@ -142,7 +142,16 @@ class EmailsSettings extends Setting_Base
 							'wpautop' => true, // line breaks
 						),
 					),
-					'allowed_html' => self::email_content_allowed_html(),
+					'allowed_html' => array(
+						'br' => array(),
+						'&nbsp;' => array(),
+						'em' => array(),
+						'strong' => array(),
+						'p' => array(),
+						'ul' => array(),
+						'li' => array(),
+						'a' => array('href'),
+					),
 					'custom_attributes' => array(
 						'size' => 70
 					),
