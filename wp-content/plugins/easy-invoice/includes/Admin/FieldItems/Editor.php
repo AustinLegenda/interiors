@@ -10,24 +10,18 @@ class Editor
 
 		$class = $field['class'] ?? '';
 
-?>
+		?>
 		<div class="matrixaddons-fieldset">
 			<?php
 
 			$settings = array(
-				'textarea_name' => $field_name,
-				'tinymce' => array(
-					'toolbar1' => 'formatselect, bold,italic,underline, blockquote, strikethrough, bullist,numlist,separator,alignleft,aligncenter,alignright,separator,link,unlink,undo,redo',
-					'block_formats' => 'Paragraph=p; Heading 1=h1; Heading 2=h2; Heading 3=h3; Heading 4=h4; Heading 5=h5; Heading 6=h6',
-					'height' => 300,
-					'valid_elements' => '*[*]', //Allows all elements and attributes
-					'extended_valid_elements' => 'br,p,strong,em,a[href|target|rel],ul,ol,li,h1,h2,h3,h4,h5,h6,span,div,blockquote,del,ins,code,img[src|height|width|alt|title]',
-					'wpautop' => false, //Prevents WordPress from auto-wrapping content in <p>
-					'forced_root_block' => 'p', //Ensures proper paragraph formatting
-				),
-				'editor_height' => 150, // In pixels, takes precedence and has no default value
-			);
+					'textarea_name' => $field_name,
+					'tinymce' => array(
+							'toolbar1' => 'bold,italic,underline, blockquote, strikethrough, bullist, numlist, separator,alignleft,aligncenter,alignright,separator,link,unlink,undo,redo'
+					),
+					'editor_height' => 150, // In pixels, takes precedence and has no default value
 
+			);
 			$editor_id = $field_name . '_id';
 
 			$value = $value == null ? "" : $value;
@@ -35,39 +29,38 @@ class Editor
 			wp_editor($value, $editor_id, $settings);
 			?>
 		</div>
-<?php
+		<?php
 	}
 
 	public static function sanitize($field, $raw_value, $field_id)
 	{
 		$allowed_html = $field['allowed_html'] ?? array(
-			'p' => array('style' => array()),
-			'a' => array('href' => array(), 'target' => array(), 'rel' => array()),
-			'br' => array(),
-			'b' => array(),
-			'strong' => array(),
-			'em' => array(),
-			'i' => array(),
-			'u' => array(),
-			'blockquote' => array(),
-			'del' => array(),
-			'ins' => array(),
-			'img' => array('src' => array(), 'height' => array(), 'width' => array()),
-			'ul' => array(),
-			'ol' => array(),
-			'li' => array(),
-			'code' => array(),
-			'span' => array('style' => array()),
-			// ✅ Add heading tags:
-			'h1' => array(),
-			'h2' => array(),
-			'h3' => array(),
-			'h4' => array(),
-			'h5' => array(),
-			'h6' => array(),
-		);
+						'p' => array(
+								'style' => array()
+						),
+						'a' => array('href' => array(), 'target' => array(), 'rel' => array()),
+						'br' => array(),
+						'b' => array(),
+						'strong' => array(),
+						'em' => array(),
+						'i' => array(),
+						'u' => array(),
+						'blockquote' => array(),
+						'del' => array(),
+						'ins' => array(),
+						'img' => array(
+								'src' => array(),
+								'height' => array(),
+								'width' => array()
+						),
+						'ul' => array(),
+						'ol' => array(),
+						'li' => array(),
+						'code' => array(),
+						'span' => array('style' => array()
+						)
+				);
 
-		return wpautop(wp_kses_post($raw_value));
-
+		return wp_kses($raw_value, $allowed_html);
 	}
 }
