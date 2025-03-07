@@ -141,7 +141,8 @@ class EmailsSettings extends Setting_Base
 					'editor_settings' => array(
 						'tinymce' => array(
 							'toolbar1' => 'bold,italic,underline,link,unlink,bullist,numlist,undo,redo',
-							'wpautop' => true, // line breaks
+							'wpautop' => true, // Ensures Enter creates new paragraphs
+							'forced_root_block' => 'p', // Forces TinyMCE to wrap text in <p> tags
 						),
 					),
 					'allowed_html' => self::email_content_allowed_html(),
