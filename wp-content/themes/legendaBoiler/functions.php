@@ -13,7 +13,7 @@ add_action('init', function() {
   } else {
       error_log("ERROR: WordPress test email failed.");
   }
-});
+}); 
 
 
 add_filter('template_include', function ($template) {
