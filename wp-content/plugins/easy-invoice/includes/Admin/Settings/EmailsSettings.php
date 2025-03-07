@@ -154,7 +154,7 @@ class EmailsSettings extends Setting_Base
 					),
 					'custom_attributes' => array(
 						'size' => 70
-				),
+				), 
 					'default' => DefaultEmailMessages::get_invoice_available_message_to_client(),
 				),
 				array(
