@@ -15,6 +15,8 @@
                 foreach ($details_data as $details) {
                     if ($details['label'] === easy_invoice_get_text('quote_number')) {
                         echo '<div class="quote-number lei-detail"><strong>Estimate Number:</strong> ' . esc_html($details['value']) . '</div>';
+                    } elseif ($details['label'] === easy_invoice_get_text('order_number')) { // Added Purchase Order
+                        echo '<div class="order-number lei-detail"><strong>Work Order:</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('quote_date')) {
                         echo '<div class="quote-date lei-detail"><strong>Estimate Date:</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('valid_until_date')) {
