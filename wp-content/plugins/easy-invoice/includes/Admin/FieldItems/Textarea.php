@@ -20,7 +20,40 @@ class Textarea
 
 	public static function sanitize($field, $raw_value, $field_id)
 	{
-		$allowed_html = $field['allowed_html'] ?? array();
+		$allowed_html = $field['allowed_html'] ?? array(
+			'p' => array(
+				'style' => array()
+			),
+			'a' => array('href' => array(), 'target' => array(), 'rel' => array()),
+			'br' => array(),
+			'&nbsp;' => array(),
+			'b' => array(),
+			'strong' => array(),
+			'em' => array(),
+			'i' => array(),
+			'u' => array(),
+			'blockquote' => array(),
+			'del' => array(),
+			'ins' => array(),
+			'img' => array(
+				'src' => array(),
+				'height' => array(),
+				'width' => array()
+			),
+			'ul' => array(),
+			'ol' => array(),
+			'li' => array(),
+			'code' => array(),
+			'span' => array(
+				'style' => array()
+			),
+			'h1' => array(),
+			'h2' => array(),
+			'h3' => array(),
+			'h4' => array(),
+			'h5' => array(),
+		);
+
 		return wp_kses($raw_value, $allowed_html);
 	}
 }

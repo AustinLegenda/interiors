@@ -24,23 +24,6 @@ class ClientFields extends Base
 			'additional_info' => [
 				'type' => 'textarea',
 				'title' => __('Additional Info', 'easy-invoice'),
-				'allowed_html' => array(
-					'a' => array(
-						'href' => array(),
-						'target' => array()
-					),
-					'br' => array(),
-					'em' => array(),
-					'strong' => array(),
-					'hr' => array(),
-					'p' => array(),
-					'h1' => array(),
-					'h2' => array(),
-					'h3' => array(),
-					'h4' => array(),
-					'h5' => array(),
-					'h6' => array(),
-				)
 			],
 
 		];
