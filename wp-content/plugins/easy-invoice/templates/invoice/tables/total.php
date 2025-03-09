@@ -36,7 +36,7 @@ global $ei_invoice;
 			<?php } ?>
 
 			<?php if ($ei_invoice->get_deposit_amount() > 0) { ?>
-				<tr class="row-deposit" style="color:#0073aa;">
+				<tr class="row-deposit" style="color:#808080;">
 					<td class="rate"><?php echo esc_html(easy_invoice_get_text('deposit_required')) ?> </td>
 					<td class="total"><?php echo round(($ei_invoice->get_deposit_amount() / $ei_invoice->get_sub_total()) * 100, 2); ?>%</td>
 				</tr>
