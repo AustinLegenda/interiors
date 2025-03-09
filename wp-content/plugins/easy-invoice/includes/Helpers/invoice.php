@@ -23,6 +23,7 @@ if (!function_exists('easy_invoice_get_invoice_label')) {
 	}
 }
 
+
 if (!function_exists('easy_invoice_get_invoice_details_data')) {
 	function easy_invoice_get_invoice_details_data()
 	{
@@ -129,6 +130,7 @@ if (!function_exists('easy_invoice_get_invoice_statuses')) {
 	{
 
 		return [
+			'pending_deposit' => __('Pending Deposit', 'easy-invoice'), // NEW STATUS
 			'available' => __("Available", "easy-invoice"),
 			'draft' => __("Draft", "easy-invoice"),
 			'overdue' => __("Overdue", "easy-invoice"),

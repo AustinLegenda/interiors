@@ -4,10 +4,8 @@ if (!defined('ABSPATH')) {
 }
 
 global $ei_invoice;
-
 ?>
 <div class="ei-invoice-totals">
-	<!-- <div class="ei-flex-1 ei-invoice-totals"> -->
 	<table class="right-text totals-table">
 		<tbody>
 			<tr>
@@ -28,6 +26,14 @@ global $ei_invoice;
 						-<?php echo esc_html(easy_invoice_get_price($ei_invoice->get_discount_amount(), '', $ei_invoice->get_id())); ?></td>
 				</tr>
 			<?php } ?>
+
+			<?php if ($ei_invoice->get_deposit_amount() > 0) { ?>
+				<tr class="row-deposit" style="color:#0073aa;">
+					<td class="rate"><?php echo esc_html(easy_invoice_get_text('deposit_required')) ?> </td>
+					<td class="total"><?php echo round(($ei_invoice->get_deposit_amount() / $ei_invoice->get_sub_total()) * 100, 2); ?>%</td>
+				</tr>
+			<?php } ?>
+
 			<tr>
 				<td colspan="2" style="padding:1px;" class="double-solid"></td>
 			</tr>
@@ -36,7 +42,6 @@ global $ei_invoice;
 				<td class="title total">
 					<strong><?php echo esc_html(easy_invoice_get_price($ei_invoice->get_due_amount(), '', $ei_invoice->get_id())); ?></strong>
 				</td>
-			
 			</tr>
 		</tbody>
 	</table>

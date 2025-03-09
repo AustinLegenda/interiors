@@ -101,6 +101,8 @@ class PayPalRequest
 		$args['no_shipping'] = 0;
 		$args['notify_url'] = esc_url(easy_invoice_get_payment_gateway_webhook_api_endpoint($gateway_id));
 
+		$args['landing_page'] = 'Billing'; // Forces PayPal to show Credit/Debit option first
+
 		if ($payment_type === 'partial') {
 
 			//Add Line Items to PayPal Line Items
@@ -137,6 +139,7 @@ class PayPalRequest
 			//End of Line Items
 
 		}
+
 
 		$args['option_index_0'] = $args_index;
 

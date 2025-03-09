@@ -11,6 +11,7 @@
 				easy_invoice_load_template('tables.details', array('details_data' => easy_invoice_get_invoice_details_data()));
 				?>
 			</div>
+			
 		</div>
 
 		<form method="post" class="easy-invoice-checkout-form"
@@ -28,6 +29,8 @@
 						}
 						?>
 					</div>
+
+					
 					<div class="ei-flex-1 ei-invoice-pay-now-wrap right-text">
 						<button type="submit" class="ei-button" name="easy_invoice_proceed_to_payment"
 								id="easy_invoice_proceed_to_payment"

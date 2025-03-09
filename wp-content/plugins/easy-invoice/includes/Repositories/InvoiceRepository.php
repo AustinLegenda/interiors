@@ -31,7 +31,6 @@ class InvoiceRepository
 		$line_items = is_array($line_items) ? $line_items : array();
 
 		return LineItemModel::map($line_items);
-
 	}
 
 	public function get_description()
@@ -170,37 +169,30 @@ class InvoiceRepository
 
 					return 0;
 				}
-
 			}
 
 			if ('inclusive' === $tax_type) {
 
 				return (($calculation_value * $tax_percentage) / (100 + $tax_percentage));
-
 			}
 			return ($calculation_value * $tax_percentage) / 100;
-
 		}
 		return 0;
-
 	}
 
 	public function get_discount_value()
 	{
 		return floatval(get_post_meta($this->invoice_id, 'discount', true));
-
 	}
 
 	public function get_discount_type()
 	{
 		return get_post_meta($this->invoice_id, 'discount_type', true);
-
 	}
 
 	public function get_discount_calculation_method()
 	{
 		return get_post_meta($this->invoice_id, 'discount_calculation_method', true);
-
 	}
 
 	public function get_discount_amount()
@@ -224,16 +216,34 @@ class InvoiceRepository
 			if ($discount_type == 'fixed') {
 
 				$discount_amount = $calculation_value >= $discount_value ? $discount_value : $calculation_value;
-
 			} else {
 				$discount_amount = ($calculation_value * $discount_value) / 100;
 			}
 
 			return $discount_amount;
-
 		}
 
 		return 0;
+	}
+
+	public function get_deposit_amount()
+	{
+		// Check if invoice is in "Pending Deposit" status
+		$invoice_status = get_post_meta($this->get_id(), 'invoice_status', true);
+
+		if ($invoice_status === 'pending_deposit') {
+			// Retrieve deposit percentage, default to 50%
+			$deposit_percentage = get_post_meta($this->get_id(), 'deposit_percentage', true);
+			if (!$deposit_percentage) {
+				$deposit_percentage = 0.50; // Default to 50% if no value is set
+			}
+
+			// Calculate deposit amount based on subtotal
+			$deposit_amount = $this->get_sub_total() * $deposit_percentage;
+			return floatval($deposit_amount);
+		}
+
+		return 0; // If not in "Pending Deposit" status, no deposit amount applies
 	}
 
 	public function get_total_paid()
@@ -243,9 +253,18 @@ class InvoiceRepository
 
 	public function get_due_amount()
 	{
-		return floatval($this->get_sub_total() + $this->get_tax_amount() - $this->get_discount_amount() - $this->get_total_paid());
-	}
+		// Get the standard due amount
+		$due_amount = floatval($this->get_sub_total() + $this->get_tax_amount() - $this->get_discount_amount() - $this->get_total_paid());
 
+		// Check if invoice is in "Pending Deposit" status
+		$deposit_amount = $this->get_deposit_amount();
+		if ($deposit_amount > 0) {
+			return $deposit_amount; // Return only the deposit amount if pending deposit
+		}
+
+		return $due_amount; // Otherwise, return full due amount
+	}
+	
 	public function is_invoice_payable()
 	{
 		if (get_post_status($this->invoice_id) != 'publish') {
@@ -273,6 +292,4 @@ class InvoiceRepository
 		}
 		return false;
 	}
-
-
 }
