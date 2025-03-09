@@ -61,7 +61,12 @@ class Editor
 			'code' => array(),
 			'span' => array(
 				'style' => array()
-			)
+			),
+			'h1' => array(),
+			'h2' => array(),
+			'h3' => array(),
+			'h4' => array(),
+			'h5' => array(),
 		);
 
 		return wp_kses($raw_value, $allowed_html);
