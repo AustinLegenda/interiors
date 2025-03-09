@@ -42,6 +42,7 @@ class Editor
 			),
 			'a' => array('href' => array(), 'target' => array(), 'rel' => array()),
 			'br' => array(),
+			'&nbsp;' => array(),
 			'b' => array(),
 			'strong' => array(),
 			'em' => array(),
