@@ -27,7 +27,6 @@ class PayPalWebHooks extends PaymentWebhookBase
 		if ($invoice_id < 1 || $payment_id < 1) {
 
 			return new \WP_Error('ei_invalid_request', __('invalid request. Invoice ID missing.', 'easy-invoice'));
-
 		}
 
 		$payment = new PaymentRepository($payment_id);
@@ -46,11 +45,13 @@ class PayPalWebHooks extends PaymentWebhookBase
 		}
 
 		return new \WP_Error('ei_invalid_request', __('invalid request.', 'easy-invoice'));
-
 	}
 
 	public function handle_webhook_request(\WP_REST_Request $request)
 	{
+		file_put_contents(ABSPATH . 'paypal_webhook_log.txt', print_r($_POST, true), FILE_APPEND);
+		file_put_contents(ABSPATH . 'paypal_webhook_json_log.txt', file_get_contents("php://input"), FILE_APPEND);
+
 
 		include_once dirname(__FILE__) . '/php-paypal-ipn/IPNListener.php';
 
@@ -89,16 +90,13 @@ class PayPalWebHooks extends PaymentWebhookBase
 			easy_invoice_update_payment_status($payment_id, 'publish', $_POST['mc_gross'], $transaction_id);
 
 			$payment_note = 'PayPal Payment successfully completed';
-
 		} else {
 
 			$payment_note .= "\nPayment status not set to Completed\n";
-
 		}
 
 		$payment->update_payment_date(date('Y-m-d H:i:s'));
 
 		$payment->add_note($payment_note);
-
 	}
 }

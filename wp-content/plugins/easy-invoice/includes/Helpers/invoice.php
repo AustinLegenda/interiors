@@ -130,7 +130,8 @@ if (!function_exists('easy_invoice_get_invoice_statuses')) {
 	{
 
 		return [
-			'pending_deposit' => __('Pending Deposit', 'easy-invoice'), // NEW STATUS
+			'pending_deposit' => __('Pending Deposit', 'easy-invoice'),
+			'pending_final' => __('Pending Final', 'easy-invoice'),
 			'available' => __("Available", "easy-invoice"),
 			'draft' => __("Draft", "easy-invoice"),
 			'overdue' => __("Overdue", "easy-invoice"),

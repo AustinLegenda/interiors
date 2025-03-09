@@ -27,6 +27,14 @@ global $ei_invoice;
 				</tr>
 			<?php } ?>
 
+			<?php if ($ei_invoice->get_paid_amount() > 0) { ?>
+				<tr class="row-discount" style="color:#ff0000;">
+					<td class="paid"><?php echo esc_html(easy_invoice_get_text('paid')) ?></td>
+					<td class="total">
+						-<?php echo esc_html(easy_invoice_get_price($ei_invoice->get_paid_amount(), '', $ei_invoice->get_id())); ?></td>
+				</tr>
+			<?php } ?>
+
 			<?php if ($ei_invoice->get_deposit_amount() > 0) { ?>
 				<tr class="row-deposit" style="color:#0073aa;">
 					<td class="rate"><?php echo esc_html(easy_invoice_get_text('deposit_required')) ?> </td>

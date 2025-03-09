@@ -1,6 +1,17 @@
+<?php
+if (!defined('ABSPATH')) {
+	exit; // Exit if accessed directly
+}
+
+global $ei_invoice;
+?>
 <div class="lei-before-items-one | lei-section">
 	<div class="ei-title">
-		<h3><?php echo esc_html($title); ?></h3>
+		<?php if ($ei_invoice->get_deposit_amount() > 0) { ?>
+			<h3 class="ei-highlight-text"> <?php echo esc_html('Advance Retainer ' . $title); ?> </h3>
+		<?php } else { ?>
+			<h3 class="ei-main-title"> <?php echo esc_html($title); ?> </h3>
+		<?php } ?>
 	</div>
 	<div class="ei-from-address">
 		<?php easy_invoice_get_from_address(); ?>

@@ -37,7 +37,8 @@ if (!function_exists('easy_invoice_get_all_texts')) {
 			'quote_amount' => __('Estimate Amount', 'easy-invoice'),
 			'valid_until_date' => __('Valid Until Date', 'easy-invoice'),
 			'quote_date' => __('Estimate Date', 'easy-invoice'),
-			'deposit_required' => __('Deposit Required', 'easy-invoice')
+			'deposit_required' => __('Advance Retainer', 'easy-invoice'),
+			'paid' => __('Paid', 'easy-invoice')
 		]);
 
 	}
