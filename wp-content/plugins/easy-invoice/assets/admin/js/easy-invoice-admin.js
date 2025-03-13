@@ -2,39 +2,40 @@
 (function ($) {
 
 	$(document).ready(function () {
-        function toggleFields(parent, type) {
-            if (type === 'header') {
-                // Show Section Header fields, Hide Line Item fields
-                parent.find('.section-header-group').show();
-                parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').hide();
-            } else {
-                // Show Line Item fields, Hide Section Header fields
-                parent.find('.section-header-group').hide();
-                parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').show();
-            }
-        }
+		function toggleFields(parent, type) {
+			if (type === 'header') {
+				// Show Section Header fields, Hide Line Item fields
+				parent.find('.section-header-group').show();
+				parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').hide();
+			} else {
+				// Show Line Item fields, Hide Section Header fields
+				parent.find('.section-header-group').hide();
+				parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').show();
+			}
+		}
 
-        // Handle change event for Entry Type selection
-        $('body').on('change', '.easy-invoice-entry-type', function () {
-            var parent = $(this).closest('.matrixaddons-repeater-item');
-            var type = $(this).val();
-            toggleFields(parent, type);
-        });
+		
+		// Handle change event for Entry Type selection
+		$('body').on('change', '.easy-invoice-entry-type', function () {
+			var parent = $(this).closest('.matrixaddons-repeater-item');
+			var type = $(this).val();
+			toggleFields(parent, type);
+		});
 
-        // Automatically scroll to newly added items for better UX
-        $('body').on('click', '.matrixaddons-repeater-add', function () {
-            setTimeout(() => {
-                $('.matrixaddons-repeater-item').last().get(0).scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        });
+		// Automatically scroll to newly added items for better UX
+		$('body').on('click', '.matrixaddons-repeater-add', function () {
+			setTimeout(() => {
+				$('.matrixaddons-repeater-item').last().get(0).scrollIntoView({ behavior: 'smooth' });
+			}, 300);
+		});
 
-        // Initialize UI state on page load
-        $('.easy-invoice-entry-type').each(function () {
-            var parent = $(this).closest('.matrixaddons-repeater-item');
-            toggleFields(parent, $(this).val());
-        });
-    });
-	
+		// Initialize UI state on page load
+		$('.easy-invoice-entry-type').each(function () {
+			var parent = $(this).closest('.matrixaddons-repeater-item');
+			toggleFields(parent, $(this).val());
+		});
+	});
+
 	var EasyInvoiceAdmin = {
 		setupElementBasic: function () {
 			this.currency_symbol = $('input[name="currency_symbol"]');
@@ -136,7 +137,7 @@
 				total_taxable_amount = (item.taxable ? (total_taxable_amount + item.amount) : total_taxable_amount);
 				total_subtotal += item.amount;
 			});
-			return {taxable: total_taxable_amount, subtotal: total_subtotal};
+			return { taxable: total_taxable_amount, subtotal: total_subtotal };
 		},
 		get_tax_amount: function () {
 
@@ -322,6 +323,7 @@
 				$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-text').text(item_title);
 
 			});
+
 			$('body').on('click', '.matrixaddons-repeater-add', function (e) {
 				e.preventDefault();
 				var parent = $(this).closest('.matrixaddons-field-group');
@@ -340,19 +342,42 @@
 			$('body').on('click', '.matrixaddons-repeater-title', function (e) {
 				if (!$(e.target).hasClass('matrixaddons-repeater-remove')) {
 					$(this).closest('.matrixaddons-field-group').trigger('easy_invoice_repeater_modify', $(this).closest('.matrixaddons-field-group').attr('id'));
+			
 					var el = $(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-content');
+					var headerIcons = $(this).find('.matrixaddons-repeater-header-icon');
+			
 					if (el.hasClass('matrixaddons-hide')) {
-						$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-header-icon').removeClass('dashicons dashicons-arrow-up-alt2').addClass('dashicons dashicons-arrow-down-alt2');
-
+						headerIcons.removeClass('dashicons dashicons-arrow-up-alt2').addClass('dashicons dashicons-arrow-down-alt2');
 						el.removeClass('matrixaddons-hide');
 					} else {
-						$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-header-icon').removeClass('dashicons dashicons-arrow-down-alt2').addClass('dashicons dashicons-arrow-up-alt2');
-
+						headerIcons.removeClass('dashicons dashicons-arrow-down-alt2').addClass('dashicons dashicons-arrow-up-alt2');
 						el.addClass('matrixaddons-hide');
-
 					}
+			
+					
 				}
-			})
+			});
+			
+			
+				$(".matrixaddons-repeater-title").each(function() {
+					let titleBar = $(this).find(".matrixaddons-repeater-header-icon");
+			
+					// Ensure the drag handle is only added once
+					if ($(this).find(".lei-drag-handle").length === 0) {
+						titleBar.before('<span class="lei-drag-handle dashicons dashicons-ellipsis"></span>');
+					}
+				});
+			
+				// Enable drag-and-drop sorting
+				$(".matrixaddons-repeater-wrapper").sortable({
+					handle: ".lei-drag-handle",
+					update: function(event, ui) {
+						let sortedIDs = $(this).sortable("toArray", { attribute: "data-item-id" });
+						console.log("New Order: ", sortedIDs); // Send this data via AJAX if needed
+					}
+				});
+			
+			
 
 			$('body').on('click', '.matrixaddons-repeater-remove', function () {
 				var min_item = parseInt($(this).attr('data-min-item'));
