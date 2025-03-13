@@ -22,7 +22,7 @@ $line_items = $ei_invoice->get_line_items();
 				if ($line_item->get_entry_type() === 'header') { ?>
 					<tr class="section-header">
 						<td colspan="" class="section-header-title">
-							<strong><?php echo esc_html($line_item->get_section_header()); ?></strong>
+							<strong><?php echo esc_html($line_item->get_section_title()); ?></strong>
 						</td>
 
 					</tr>

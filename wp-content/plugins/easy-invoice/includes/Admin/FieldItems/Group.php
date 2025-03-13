@@ -23,12 +23,11 @@ class Group
 				class="matrixaddons-repeater-text"><span class="matrixaddons-repeater-value">';
 		echo esc_html($title);
 		echo '<span class="matrixaddons-repeater-placeholder"></span></span></span></h4>';
-
 	}
 
 	public static function render($field, $field_id, $value, $group_id = null)
 	{
-		$repeatable = isset($field['repeatable']) && (boolean)$field['repeatable'];
+		$repeatable = isset($field['repeatable']) && (bool)$field['repeatable'];
 
 		if ($repeatable) {
 
@@ -63,7 +62,14 @@ class Group
 
 				foreach ($value_array as $value_item) {
 
-					$title = $value_item[$item_title_field] ?? __('Sample Title', 'easy-invoice');
+					$entry_type = $value_item['entry_type'] ?? 'line_item';
+
+					if ($entry_type === 'header') {
+						$title = $value_item['section_title'] ?? __('Untitled Section', 'easy-invoice'); // Use section_title for headers
+					} else {
+						$title = $value_item['item_title'] ?? __('Sample Title', 'easy-invoice'); // Use item_title for line items
+					}
+
 
 					echo '<div class="matrixaddons-repeater-item" data-item-id="' . absint($child_field_count) . '">';
 
@@ -83,7 +89,6 @@ class Group
 
 							HTML::render_item($child_field, $child_field_id, $group_value_single, $repeater_group_id);
 						}
-
 					}
 
 					echo '</div>';
@@ -91,9 +96,7 @@ class Group
 					echo '</div>';
 
 					$child_field_count++;
-
 				}
-
 			}
 
 			echo '</div>';
@@ -108,7 +111,7 @@ class Group
 
 		$valid_data = array();
 
-		$repeatable = isset($field['repeatable']) && (boolean)$field['repeatable'];
+		$repeatable = isset($field['repeatable']) && (bool)$field['repeatable'];
 
 		if ($repeatable) {
 

@@ -34,10 +34,10 @@ class LineItemFields extends Base
 						'type' => 'wrap',
 						'class' => 'section-header-group',
 					],
-					'section_header' => [
+					'section_title' => [
 						'type' => 'text',
-						'title' => __('Section Header', 'easy-invoice'),
-						'class' => 'easy-invoice-section-header',
+						'title' => __('Section Title', 'easy-invoice'),
+						'class' => 'easy-invoice-section-title',
 						'default' => '',
 					],
 					'section_header_wrap_end' => [
@@ -76,17 +76,6 @@ class LineItemFields extends Base
 						'class' => 'easy-invoice-line-item-title',
 						'default' => '',
 					],
-					'qty_type' => [
-						'title' => __('Quantity Type', 'easy-invoice'),
-						'type' => 'select',
-						'options' => [
-							'' => __('', 'easy-invoice'),
-							'hours' => __('hour(s)', 'easy-invoice'),
-							'days' => __('day(s)', 'easy-invoice')
-						],
-						'class' => 'easy-invoice-line-item-quantity',
-						'default' => '',
-					],
 					'adjust' => [
 						'type' => $adjust_type,
 						'title' => __('Adjust (%)', 'easy-invoice'),
@@ -99,10 +88,44 @@ class LineItemFields extends Base
 						'class' => 'easy-invoice-line-item-rate',
 						'default' => '',
 					],
-
+					'amount' => [
+						'title' => __('Amount', 'easy-invoice'),
+						'type' => 'content',
+						'content' => '<div class="amount-content"></div>',
+						'class' => 'easy-invoice-line-item-amount',
+						'allowed_html' => array('div' => array('class' => array()))
+					],
 					'line_item_1_end' => [
 						'type' => 'wrap_end',
 						'class' => 'easy-invoice-line-item-1-wrap-end',
+					],
+
+					'line_item_2_start' => [
+						'type' => 'wrap',
+						'class' => 'easy-invoice-line-item-2-wrap',
+					],
+					'description' => [
+						'title' => __('Description', 'easy-invoice'),
+						'type' => 'textarea',
+						'class' => 'easy-invoice-line-item-description',
+					],
+					'taxable' => [
+						'type' => 'checkbox',
+						'title' => __('Taxable', 'easy-invoice'),
+						'class' => 'easy-invoice-line-item-taxable',
+						'desc' => __("Make this line item taxable.", 'easy-invoice')
+
+					],
+					'line_item_2_end' => [
+						'type' => 'wrap_end',
+						'class' => 'easy-invoice-line-item-3-wrap-end',
+					],
+					'pre_defined_line_items' => [
+						'title' => __('Predefine Line Items', 'easy-invoice'),
+						'type' => 'select',
+						'options' => $pre_defined_line_items,
+						'class' => 'easy-invoice-predefined-line-items',
+						'name' => '',
 					],
 
 					'line_item_2_start' => [

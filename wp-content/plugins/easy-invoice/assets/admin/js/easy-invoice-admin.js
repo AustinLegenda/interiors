@@ -1,20 +1,18 @@
 // @var easyInvoiceAdminParams
 (function ($) {
-
+//hide or show line-item options based on selection
 	$(document).ready(function () {
 		function toggleFields(parent, type) {
-			if (type === 'header') {
-				// Show Section Header fields, Hide Line Item fields
-				parent.find('.section-header-group').show();
-				parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').hide();
-			} else {
-				// Show Line Item fields, Hide Section Header fields
-				parent.find('.section-header-group').hide();
-				parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items').show();
-			}
+			 if (type === 'header') {
+            parent.find('.section-header-group, .easy-invoice-section-title').show();
+            parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items, .easy-invoice-line-item-title').hide();
+        } else {
+            parent.find('.section-header-group, .easy-invoice-section-title').hide();
+            parent.find('.easy-invoice-line-item-1-wrap, .easy-invoice-line-item-2-wrap, .easy-invoice-predefined-line-items, .easy-invoice-line-item-title').show();
+        }
+			
 		}
 
-		
 		// Handle change event for Entry Type selection
 		$('body').on('change', '.easy-invoice-entry-type', function () {
 			var parent = $(this).closest('.matrixaddons-repeater-item');
@@ -46,6 +44,7 @@
 			this.discount_calculation_method = $('select[name="discount_calculation_method"]');
 			this.tax_type = $('select[name="tax_type"]');
 			this.item_title = $('.easy-invoice-line-item-title');
+			this.section_title = $('.easy-invoice-section-title');
 
 
 		},
@@ -317,13 +316,36 @@
 
 			});
 
+			$(".matrixaddons-repeater-title").each(function () {
+				let titleBar = $(this).find(".matrixaddons-repeater-header-icon");
+
+				// Ensure the drag handle is only added once
+				if ($(this).find(".lei-drag-handle").length === 0) {
+					titleBar.before('<span class="lei-drag-handle dashicons dashicons-ellipsis"></span>');
+				}
+			});
+
+			// Enable drag-and-drop sorting
+			$(".matrixaddons-repeater-wrapper").sortable({
+				handle: ".lei-drag-handle",
+				update: function (event, ui) {
+					let sortedIDs = $(this).sortable("toArray", { attribute: "data-item-id" });
+					console.log("New Order: ", sortedIDs); // Send this data via AJAX if needed
+				}
+			});
+
 			$('body').on('keyup', '.easy-invoice-line-item-title', function (e) {
 				e.preventDefault();
 				var item_title = $(this).val();
 				$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-text').text(item_title);
 
 			});
+			$('body').on('keyup', '.easy-invoice-section-title', function (e) {
+				e.preventDefault();
+				var section_title = $(this).val();
+				$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-text').text(section_title);
 
+			});
 			$('body').on('click', '.matrixaddons-repeater-add', function (e) {
 				e.preventDefault();
 				var parent = $(this).closest('.matrixaddons-field-group');
@@ -342,42 +364,19 @@
 			$('body').on('click', '.matrixaddons-repeater-title', function (e) {
 				if (!$(e.target).hasClass('matrixaddons-repeater-remove')) {
 					$(this).closest('.matrixaddons-field-group').trigger('easy_invoice_repeater_modify', $(this).closest('.matrixaddons-field-group').attr('id'));
-			
 					var el = $(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-content');
-					var headerIcons = $(this).find('.matrixaddons-repeater-header-icon');
-			
 					if (el.hasClass('matrixaddons-hide')) {
-						headerIcons.removeClass('dashicons dashicons-arrow-up-alt2').addClass('dashicons dashicons-arrow-down-alt2');
+						$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-header-icon').removeClass('dashicons dashicons-arrow-up-alt2').addClass('dashicons dashicons-arrow-down-alt2');
+
 						el.removeClass('matrixaddons-hide');
 					} else {
-						headerIcons.removeClass('dashicons dashicons-arrow-down-alt2').addClass('dashicons dashicons-arrow-up-alt2');
+						$(this).closest('.matrixaddons-repeater-item').find('.matrixaddons-repeater-header-icon').removeClass('dashicons dashicons-arrow-down-alt2').addClass('dashicons dashicons-arrow-up-alt2');
+
 						el.addClass('matrixaddons-hide');
+
 					}
-			
-					
 				}
-			});
-			
-			
-				$(".matrixaddons-repeater-title").each(function() {
-					let titleBar = $(this).find(".matrixaddons-repeater-header-icon");
-			
-					// Ensure the drag handle is only added once
-					if ($(this).find(".lei-drag-handle").length === 0) {
-						titleBar.before('<span class="lei-drag-handle dashicons dashicons-ellipsis"></span>');
-					}
-				});
-			
-				// Enable drag-and-drop sorting
-				$(".matrixaddons-repeater-wrapper").sortable({
-					handle: ".lei-drag-handle",
-					update: function(event, ui) {
-						let sortedIDs = $(this).sortable("toArray", { attribute: "data-item-id" });
-						console.log("New Order: ", sortedIDs); // Send this data via AJAX if needed
-					}
-				});
-			
-			
+			})
 
 			$('body').on('click', '.matrixaddons-repeater-remove', function () {
 				var min_item = parseInt($(this).attr('data-min-item'));

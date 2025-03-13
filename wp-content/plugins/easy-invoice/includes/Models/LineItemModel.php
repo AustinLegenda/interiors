@@ -4,15 +4,25 @@ namespace MatrixAddons\EasyInvoice\Models;
 
 class LineItemModel
 {
+
+	private $entry_type;
+
 	private $quantity;
+
+	private $qty_type;
+
 	private $item_title;
+
+	private $section_title;
+
 	private $adjust;
+
 	private $rate;
+
 	private $description;
+
 	private $taxable;
-	private $entry_type; // NEW: Determines if this is a section header or line item
-	private $section_header; // NEW: Stores section header text
-	private $qty_type; // NEW: Quantity type select
+
 
 	private static function get_instance()
 	{
@@ -21,20 +31,22 @@ class LineItemModel
 
 	public static function map($line_items = array())
 	{
+
 		$line_items_obj = array();
 
 		foreach ($line_items as $line_item) {
-			$self = self::get_instance();
-			$self->qty_type = $line_item['qty_type'] ?? '';
-			$self->entry_type = $line_item['entry_type'] ?? 'line_item'; // Default to line item
-			$self->section_header = $line_item['section_header'] ?? ''; // Store section header text (if exists)
 
+			$self = self::get_instance();
+
+			$self->entry_type = $line_item['entry_type'] ?? 'line_item'; // Default to line_item
 			$self->quantity = $line_item['quantity'] ?? '';
+			$self->qty_type = $line_item['qty_type'] ?? '';
 			$self->item_title = $line_item['item_title'] ?? '';
+			$self->section_title = $line_item['section_title'] ?? '';
 			$self->adjust = easy_invoice_show_hide_adjust() && $line_item['adjust'] ? floatval($line_item['adjust']) : 0;
 			$self->rate = $line_item['rate'] ? floatval($line_item['rate']) : 0;
 			$self->description = $line_item['description'] ?? '';
-			$self->taxable = isset($line_item['taxable']) && (boolean)$line_item['taxable'];
+			$self->taxable = isset($line_item['taxable']) && (bool)$line_item['taxable'];
 
 			$line_items_obj[] = $self;
 		}
@@ -45,11 +57,6 @@ class LineItemModel
 	public function get_entry_type()
 	{
 		return $this->entry_type;
-	}
-
-	public function get_section_header()
-	{
-		return $this->section_header;
 	}
 
 	public function get_quantity()
@@ -65,6 +72,11 @@ class LineItemModel
 	public function get_item_title()
 	{
 		return $this->item_title;
+	}
+
+	public function get_section_title()
+	{
+		return $this->section_title;
 	}
 
 	public function get_adjust()
