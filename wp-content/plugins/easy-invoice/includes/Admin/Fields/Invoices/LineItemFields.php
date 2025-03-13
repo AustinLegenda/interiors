@@ -76,6 +76,17 @@ class LineItemFields extends Base
 						'class' => 'easy-invoice-line-item-title',
 						'default' => '',
 					],
+					'qty_type' => [
+						'type' => 'select',
+						'options' => [
+							'blank' => __('', 'easy-invoice'),
+							'hours' => __('Hour(s)', 'easy-invoice'),
+							'days' => __('Day(s)', 'easy-invoice'),
+						],
+						'title' => __('Qty Type', 'easy-invoice'),
+						'class' => 'easy-invoice-entry-type',
+						'default' => 'blank',
+					],
 					'adjust' => [
 						'type' => $adjust_type,
 						'title' => __('Adjust (%)', 'easy-invoice'),
