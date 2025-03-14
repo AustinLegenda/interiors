@@ -1,23 +1,4 @@
 (function ($) {
-	//lei drag handle
-
-
-		$(".easy-invoice-line-item").each(function() {
-			if ($(this).find(".lei-drag-handle").length === 0) {
-				$(this).prepend('<div class="lei-drag-handle">☰</div>');
-			}
-		});
-	
-		// Enable sortable functionality
-		$(".easy-invoice-line-item").parent().sortable({
-			handle: ".lei-drag-handle",
-			update: function(event, ui) {
-				let sortedIDs = $(this).sortable("toArray", { attribute: "data-id" });
-				console.log("New Order: ", sortedIDs); // Send to backend via AJAX if needed
-			}
-		});
-
-
 	var common;
 	var EasyInvoiceFrontend = {
 		init: function () {

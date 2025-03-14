@@ -1,5 +1,26 @@
 // @var easyInvoiceAdminParams
 (function ($) {
+		//lei drag handle
+		$(".easy-invoice-line-item").each(function () {
+			if ($(this).find(".lei-drag-handle").length === 0) {
+				$(this).prepend('<div class="lei-drag-handle">☰</div>');
+			}
+		});
+	
+		// Enable sortable functionality
+		if ($.fn.sortable) {
+			$(".matrixaddons-repeater-wrapper").sortable({
+				handle: ".lei-drag-handle",
+				update: function (event, ui) {
+					let sortedIDs = $(this).sortable("toArray", { attribute: "data-id" });
+					console.log("New Order: ", sortedIDs); // Send this data via AJAX if needed
+				}
+			});
+		} else {
+			console.error("jQuery UI Sortable is not loaded.");
+		}
+	
+	
 //hide or show line-item options based on selection
 	$(document).ready(function () {
 		function toggleFields(parent, type) {
