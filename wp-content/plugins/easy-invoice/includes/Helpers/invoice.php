@@ -2,6 +2,7 @@
 
 use MatrixAddons\EasyInvoice\Constant;
 use MatrixAddons\EasyInvoice\Repositories\InvoiceRepository;
+use MatrixAddons\EasyInvoice\Repositories\PaymentRepository;
 
 
 if (!function_exists('easy_invoice_get_invoice_options')) {
@@ -11,7 +12,6 @@ if (!function_exists('easy_invoice_get_invoice_options')) {
 		$invoice_id = is_null($invoice_id) ? get_the_ID() : absint($invoice_id);
 
 		return new InvoiceRepository($invoice_id);
-
 	}
 }
 
@@ -116,6 +116,7 @@ if (!function_exists('easy_invoice_update_invoice_status')) {
 
 		update_post_meta($invoice_id, 'invoice_status', sanitize_text_field($status));
 
+
 		do_action('easy_invoice_after_invoice_status_change', array(
 			'invoice_id' => $invoice_id,
 			'status' => $status
@@ -125,15 +126,16 @@ if (!function_exists('easy_invoice_update_invoice_status')) {
 	}
 }
 
+
 if (!function_exists('easy_invoice_get_invoice_statuses')) {
 	function easy_invoice_get_invoice_statuses()
 	{
 
 		return [
+			'draft' => __("Draft", "easy-invoice"),
+			'available' => __("Available", "easy-invoice"),
 			'pending_deposit' => __('Pending Deposit', 'easy-invoice'),
 			'pending_final' => __('Pending Final', 'easy-invoice'),
-			'available' => __("Available", "easy-invoice"),
-			'draft' => __("Draft", "easy-invoice"),
 			'overdue' => __("Overdue", "easy-invoice"),
 			'paid' => __("Paid", "easy-invoice"),
 			'unpaid' => __("Unpaid", "easy-invoice"),
@@ -142,9 +144,42 @@ if (!function_exists('easy_invoice_get_invoice_statuses')) {
 	}
 }
 
+//LEI Manual Payment
 
 
+// LEI Only create a payment post when status is 'paid'
+/*if ($status === 'paid') {
+	
+	$existing_payments = get_posts(array(
+		'post_type'   => 'easy-invoice-payment',
+		'meta_key'    => 'invoice_id',
+		'meta_value'  => $invoice_id,
+		'post_status' => 'any',
+		'numberposts' => 1
+	));
+
+	if (!empty($existing_payments)) {
+		error_log("Payment already exists for Invoice ID: " . $invoice_id . ". Skipping creation.");
+		return true;
+	}
 
 
+	$invoice = new InvoiceRepository($invoice_id);
+	$paid_amount = $invoice->get_due_amount(); 
+	$payment_id = wp_insert_post(array(
+		'post_title'   => 'Payment - #' . $invoice_id,
+		'post_status'  => 'processing',  
+		'post_type'    => 'easy-invoice-payment',
+		'meta_input'   => array(
+			'invoice_id'      => $invoice_id,
+			'payment_gateway' => 'Digital, Check, or Cash Deposit',
+			'paid_amount'     => $paid_amount,  
+		)
+	));
 
-
+	if ($payment_id) {
+		easy_invoice_update_payment_status($payment_id, 'publish', $paid_amount, '');
+	} else {
+		error_log("Failed to create payment post for Invoice ID: " . $invoice_id);
+	}
+}*/

@@ -103,9 +103,9 @@ class Payments
 			'exclude_from_search' => false,
 			'show_in_admin_bar' => false,
 			'capabilities' => array(
-				'create_posts' => true,
-				'edit_published_posts' => true,
-				'delete_published_posts' => true,
+				'create_posts' => false,
+				'edit_published_posts' => false,
+				'delete_published_posts' => false,
 			),
 		);
 		register_post_type($this->slug, $args);

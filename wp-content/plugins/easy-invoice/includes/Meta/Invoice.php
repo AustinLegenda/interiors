@@ -43,6 +43,11 @@ class Invoice
 		add_meta_box('easy-invoice-tax',
 			__('Tax', 'easy-invoice'), array($this, 'tax_settings'), Constant::INVOICE_POST_TYPE, 'side', 'low');
 
+			//lei
+
+		add_meta_box('easy_invoice_payment_item_fields',
+		__('Payment Options', 'easy-invoice'), array($this, 'payment_settings'), Constant::INVOICE_POST_TYPE, 'side', 'low');
+
 
 		add_action('post_submitbox_misc_actions', array($this, 'before_save_post'));
 
@@ -96,6 +101,11 @@ class Invoice
 		$terms_conditions_fields = new TermsConditionsFields();
 
 		$terms_conditions_fields->save($_POST, $post_id);
+
+		//lei
+		$payment_fields = new PaymentFields();
+
+		$payment_fields->save($_POST, $post_id);
 
 
 		update_post_meta($post_id, 'easy_invoice_meta_active_tab', $active_tab);
@@ -176,7 +186,20 @@ class Invoice
 
 		echo '</div>';
 	}
+//lei
 
+public function payment_settings($post){
+	if ($post->post_type !== Constant::INVOICE_POST_TYPE) {
+		return;
+	}
+	echo '<div class="easy-invoice-payment-settings">';
+
+	$payment_fields = new PaymentFields();
+
+	$payment_fields->render();
+
+	echo '</div>';
+}
 
 	public function scripts()
 	{

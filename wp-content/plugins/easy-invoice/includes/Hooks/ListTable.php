@@ -25,7 +25,6 @@ class ListTable
 
 		add_filter('post_row_actions', array($this, 'row_link'), 10, 2);
 		add_filter('admin_action_clone_quote_invoice', array($this, 'row_actions'));
-
 	}
 
 	public function row_link($actions, $post)
@@ -38,7 +37,6 @@ class ListTable
 			$output = admin_url('admin.php?action=clone_quote_invoice&amp;post=' . $post->ID . '&amp;_wpnonce=' . $nonce);
 
 			$actions['duplicate'] = '<a href="' . esc_url($output) . '" title="' . __('Clone this item', 'easy-invoice') . '" rel="permalink">' . __('Clone', 'easy-invoice') . '</a>';
-
 		}
 
 		return $actions;
@@ -119,7 +117,6 @@ class ListTable
 		$current_url = admin_url('edit.php?post_type=' . $post->post_type . '');
 		wp_redirect($current_url);
 		exit;
-
 	}
 
 	public function invoice_column($columns)
@@ -136,7 +133,6 @@ class ListTable
 		$columns['action'] = __('Action', 'easy-invoice');
 
 		return $columns;
-
 	}
 
 	public function invoice_column_value($column, $a)
@@ -176,8 +172,6 @@ class ListTable
 				/*echo '<a style="display:inline-flex;justify-content:space-between; align-items: center; text-align:center;" target="_blank" title="Download as PDF" class="button button-secondary" href="#"><span class="dashicons dashicons-email"></span></a>';*/
 
 				break;
-
-
 		}
 	}
 
@@ -195,7 +189,6 @@ class ListTable
 
 
 		return $columns;
-
 	}
 
 	public function invoice_payment_column_value($column, $a)
@@ -221,7 +214,6 @@ class ListTable
 				if ($gateway_id === '') {
 
 					echo '<span>N/A</span>';
-
 				} else if (isset($gateway_lists[$gateway_id])) {
 
 					echo '<span>' . esc_html($gateway_lists[$gateway_id]) . '</span>';
@@ -252,8 +244,6 @@ class ListTable
 			case "payment_date":
 				echo '<p>' . esc_html($payment->get_payment_date()) . '</p>';
 				break;
-
-
 		}
 	}
 
@@ -270,7 +260,6 @@ class ListTable
 		$columns['action'] = __('Action', 'easy-invoice');
 
 		return $columns;
-
 	}
 
 	public function quote_column_value($column, $a)
@@ -310,9 +299,6 @@ class ListTable
 				/*echo '<a style="display:inline-flex;justify-content:space-between; align-items: center; text-align:center;" target="_blank" title="Download as PDF" class="button button-secondary" href="#"><span class="dashicons dashicons-email"></span></a>';*/
 
 				break;
-
-
 		}
 	}
-
 }
