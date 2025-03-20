@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
-global $ei_invoice;
+global $ei_quote;
 
-$line_items = $ei_invoice->get_line_items();
+$line_items = $ei_quote->get_line_items();
 
 ?>
 <div class="ei-invoice-items">
@@ -38,7 +38,7 @@ $line_items = $ei_invoice->get_line_items();
 								$formatted_qty_type = ($line_item->get_quantity() > 1) ? $qty_type . 's' : $qty_type;
 								echo esc_html(' ' . $formatted_qty_type);
 							} ?>
-							@ <?php echo esc_html(easy_invoice_get_price($line_item->get_rate(), '', $ei_invoice->get_id())); ?>
+							@ <?php echo esc_html(easy_invoice_get_price($line_item->get_rate(), '', $ei_quote->get_id())); ?>
 							<?php
 							// Check if qty_type is greater than 1 and output "each"
 							if ($line_item->get_quantity() > 1) {
@@ -51,7 +51,7 @@ $line_items = $ei_invoice->get_line_items();
 							} else {
 								echo esc_html('.');
 							} ?> </td>
-						<td class="total right-text"><?php echo esc_html(easy_invoice_get_price($line_item->get_amount(), '', $ei_invoice->get_id())); ?></td>
+						<td class="total right-text"><?php echo esc_html(easy_invoice_get_price($line_item->get_amount(), '', $ei_quote->get_id())); ?></td>
 					</tr>
 				<?php } ?>
 			<?php } ?>
