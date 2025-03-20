@@ -81,8 +81,8 @@ class LineItemFields extends Base
 						'type' => 'select',
 						'options' => [
 							'' => __('', 'easy-invoice'),
-							'hours' => __('hour(s)', 'easy-invoice'),
-							'days' => __('day(s)', 'easy-invoice')
+							'hour' => __('hour(s)', 'easy-invoice'),
+							'day' => __('day(s)', 'easy-invoice')
 						],
 						'class' => 'easy-invoice-line-item-quantity',
 						'default' => '',
