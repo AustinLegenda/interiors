@@ -34,10 +34,10 @@ class LineItemFields extends Base
 						'type' => 'wrap',
 						'class' => 'section-header-group',
 					],
-					'section_header' => [
+					'section_title' => [
 						'type' => 'text',
-						'title' => __('Section Header', 'easy-invoice'),
-						'class' => 'easy-invoice-section-header',
+						'title' => __('Section Title', 'easy-invoice'),
+						'class' => 'easy-invoice-section-title',
 						'default' => '',
 					],
 					'section_header_wrap_end' => [
