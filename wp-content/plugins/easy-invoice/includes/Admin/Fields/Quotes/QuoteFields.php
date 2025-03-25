@@ -29,7 +29,7 @@ class QuoteFields extends Base
 			],
 			'order_number' => [
 				'type' => 'text',
-				'title' => __('Order Number', 'easy-invoice'),
+				'title' => __('Job Number', 'easy-invoice'),
 			],
 			'created_date' => [
 				'type' => 'text',
