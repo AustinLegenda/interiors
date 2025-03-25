@@ -36,7 +36,7 @@ if (!function_exists('easy_invoice_get_quote_description')) {
 if (!function_exists('easy_invoice_get_quote_number')) {
 	function easy_invoice_get_quote_number()
 	{
-		$pad_len = 7;
+		$pad_len = 4;
 
 		$quote_number = absint(get_option('easy_invoice_quote_number', 0));
 
@@ -109,6 +109,10 @@ if (!function_exists('easy_invoice_get_quote_details_data')) {
 			array(
 				'label' => easy_invoice_get_text('quote_number'),
 				'value' => $ei_quote->get_quote_number(),
+			),
+			array(
+				'label' => easy_invoice_get_text('order_number'),
+				'value' => $ei_quote->get_order_number(),
 			),
 			array(
 				'label' => easy_invoice_get_text('quote_date'),

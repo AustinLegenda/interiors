@@ -70,6 +70,11 @@ class QuoteRepository
 		return get_post_meta($this->quote_id, 'quote_number', true);
 	}
 
+	public function get_order_number()
+	{
+		return get_post_meta($this->quote_id, 'order_number', true);
+	}
+
 	public function get_created_date()
 	{
 		return get_post_meta($this->quote_id, 'created_date', true);

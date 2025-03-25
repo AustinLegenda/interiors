@@ -79,7 +79,7 @@ if (!function_exists('easy_invoice_get_download_as_pdf_url')) {
 if (!function_exists('easy_invoice_get_invoice_number')) {
 	function easy_invoice_get_invoice_number()
 	{
-		$pad_len = 7;
+		$pad_len = 4;
 
 		$invoice_number = absint(get_option('easy_invoice_invoice_number', 0));
 
