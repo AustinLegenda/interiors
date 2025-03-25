@@ -71,8 +71,11 @@ main a {
 }
 
 p, ul, li {
-  margin: 0;
   font-size: clamp(12px, 3vw, 14px);
+}
+
+p{
+  margin:0;
 }
 
 h1,
