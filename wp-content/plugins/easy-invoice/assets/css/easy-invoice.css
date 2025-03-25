@@ -70,7 +70,7 @@ main a {
   text-decoration: underline;
 }
 
-p {
+p, ul, li {
   margin: 0;
   font-size: clamp(12px, 3vw, 14px);
 }
