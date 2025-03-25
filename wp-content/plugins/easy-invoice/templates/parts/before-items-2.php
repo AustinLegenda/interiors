@@ -14,31 +14,32 @@
                 // Quote block
                 foreach ($details_data as $details) {
                     if ($details['label'] === easy_invoice_get_text('quote_number')) {
-                        echo '<div class="quote-number lei-detail"><strong>Estimate Number:</strong> ' . esc_html($details['value']) . '</div>';
-                    } elseif ($details['label'] === easy_invoice_get_text('order_number')) { // Added Purchase Order
-                        echo '<div class="order-number lei-detail"><strong>Work Order:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="quote-number lei-detail"><strong>' . easy_invoice_get_text('quote_number') . ':</strong> ' . esc_html($details['value']) . '</div>';
+                    } elseif ($details['label'] === easy_invoice_get_text('order_number')) {
+                        echo '<div class="order-number lei-detail"><strong>' . easy_invoice_get_text('order_number') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('quote_date')) {
-                        echo '<div class="quote-date lei-detail"><strong>Estimate Date:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="quote-date lei-detail"><strong>' . easy_invoice_get_text('quote_date') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('valid_until_date')) {
-                        echo '<div class="valid-until lei-detail"><strong>Valid Until Date:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="valid-until lei-detail"><strong>' . easy_invoice_get_text('valid_until_date') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     }
                 }
             } elseif ($is_invoice) {
                 // Invoice block
                 foreach ($details_data as $details) {
                     if ($details['label'] === easy_invoice_get_text('invoice_number')) {
-                        echo '<div class="invoice-number lei-detail"><strong>Invoice Number:</strong> ' . esc_html($details['value']) . '</div>';
-					} elseif ($details['label'] === easy_invoice_get_text('order_number')) { // Added Purchase Order
-                        echo '<div class="order-number lei-detail"><strong>Work Order:</strong> ' . esc_html($details['value']) . '</div>';
-					} elseif ($details['label'] === easy_invoice_get_text('invoice_date')) {
-                        echo '<div class="invoice-date lei-detail"><strong>Invoice Date:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="invoice-number lei-detail"><strong>' . easy_invoice_get_text('invoice_number') . ':</strong> ' . esc_html($details['value']) . '</div>';
+                    } elseif ($details['label'] === easy_invoice_get_text('order_number')) {
+                        echo '<div class="order-number lei-detail"><strong>' . easy_invoice_get_text('order_number') . ':</strong> ' . esc_html($details['value']) . '</div>';
+                    } elseif ($details['label'] === easy_invoice_get_text('invoice_date')) {
+                        echo '<div class="invoice-date lei-detail"><strong>' . easy_invoice_get_text('invoice_date') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('due_date')) {
-                        echo '<div class="due-date lei-detail"><strong>Due Date:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="due-date lei-detail"><strong>' . easy_invoice_get_text('due_date') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     } elseif ($details['label'] === easy_invoice_get_text('total_due')) {
-                        echo '<div class="total-due lei-detail"><strong>Total Due:</strong> ' . esc_html($details['value']) . '</div>';
+                        echo '<div class="total-due lei-detail"><strong>' . easy_invoice_get_text('total_due') . ':</strong> ' . esc_html($details['value']) . '</div>';
                     }
                 }
             }
+            
             ?>
         </td>
     </tr>
