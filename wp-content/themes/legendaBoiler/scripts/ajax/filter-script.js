@@ -12,7 +12,8 @@
           },
           type: 'post',
           success: function (result) {
-            $('.post-container').html(result);
+            $('.target-container').html(result);
+            initFolioLayout();
           },
           error: function (result) {
             console.log(result);

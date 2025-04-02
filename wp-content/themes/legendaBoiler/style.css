@@ -148,9 +148,10 @@ main li {
 }
 
 .cat-menu-container ul li a {
-  font-family: "EB Garamond", Garamond, Baskerville, "Times New Roman", serif;
-  font-size: clamp(.5em, 3vw, 1.5em);
-  font-weight: bold;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: clamp(11.74px, 3vw, 19px);
+  font-weight: 400;
+  color: rgb(153, 153, 153);
 }
 
 .work-feed-container h2 {

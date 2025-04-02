@@ -1,7 +1,11 @@
-<?php get_header(); ?>
-<!-- Category Navigation -->
+<?php
+/** 
+ * Template Name: Folio Grid Filter Template 
+ */
+get_header('single');
+?>
 
-<div id="work"></div>
+<!-- Category Navigation -->
 <div class="cat-menu-container main-grid-full">
     <ul>
         <li>
@@ -22,8 +26,9 @@
         <?php endforeach; ?>
     </ul>
 </div>
-<article class="main-grid-full target-container">
+
 <!-- AJAX Target Container -->
+<article class="main-grid-full target-container">
     <div class="folio-wrapper">
         <div class="folio-container nav-toggle">
             <?php
@@ -52,7 +57,6 @@
     </div>
 </article>
 
-  <?php get_footer(); ?>
-</div> <!--end wrapper-->
+<?php get_footer(); ?>
 </body>
 </html>
