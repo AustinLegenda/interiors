@@ -174,6 +174,14 @@ a.folio-els-container {
   width: 300px;
 }
 
+.target-container{
+  width: 100%;
+max-width: 1400px;
+place-self: center;
+grid-row: 4;
+}
+
+
 /* Blog Feed
      ========================================================================== */
 /* template for blog feed */
@@ -201,12 +209,18 @@ a.folio-els-container {
 /* Scondary Navigaiton
      ========================================================================== */
 /* secondary navigation container */
-.cat-menu-container {
+.cat-menu-container-work {
+  grid-row: 3;
+  margin-top: 60px;
+  
+}
+.cat-menu-container
+{
   grid-row: 3;
   margin-top: 30px;
 }
 
-.cat-menu-container ul {
+.cat-menu-container ul, .cat-menu-container-work ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;

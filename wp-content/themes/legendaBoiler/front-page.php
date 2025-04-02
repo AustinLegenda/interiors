@@ -2,7 +2,7 @@
 <!-- Category Navigation -->
 
 <div id="work"></div>
-<div class="cat-menu-container main-grid-full">
+<div class="cat-menu-container-work main-grid-full">
     <ul>
         <li>
             <a class="cat-menu-item" data-category="all" href="#">All</a>
@@ -22,7 +22,7 @@
         <?php endforeach; ?>
     </ul>
 </div>
-<article class="main-grid-full target-container">
+<div class="main-grid-full target-container">
 <!-- AJAX Target Container -->
     <div class="folio-wrapper">
         <div class="folio-container nav-toggle">
@@ -50,7 +50,7 @@
             wp_reset_postdata(); ?>
         </div>
     </div>
-</article>
+                </div>
 
   <?php get_footer(); ?>
 </div> <!--end wrapper-->

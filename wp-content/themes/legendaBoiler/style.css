@@ -147,7 +147,7 @@ main li {
   list-style-type: disc;
 }
 
-.cat-menu-container ul li a {
+.cat-menu-container ul li a, .cat-menu-container-work ul li a {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: clamp(11.74px, 3vw, 19px);
   font-weight: 400;
