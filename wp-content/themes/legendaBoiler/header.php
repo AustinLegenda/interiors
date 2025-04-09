@@ -51,7 +51,7 @@ Version: 1.0
       <a href="<?php the_permalink(); ?>">
         <!-- get tag and title content -->
        <h3 class="title"><?php the_title(); ?></h3>
-       <h3 class="tag"> <?php the_excerpt(); ?></h3></a>
+       <h4 class="tag"> <?php the_excerpt(); ?></h4></a>
        </div>
       <!--HERO IMAGE-->
       
