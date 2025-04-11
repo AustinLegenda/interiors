@@ -311,27 +311,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-wp.blocks.registerBlockType("pentablocktheme/penta-header-hero", {
-  title: "Penta Header Hero",
+wp.blocks.registerBlockType('pentablocktheme/penta-header-hero', {
+  title: 'Penta Header Hero',
   attributes: {
     textColor: {
-      type: "string",
-      default: "#222"
+      type: 'string',
+      default: '#222'
     },
     title: {
-      type: "string",
-      source: "text",
-      selector: "h3.title"
+      type: 'string',
+      default: ''
     },
+    // no source/selector
     excerpt: {
-      type: "string",
-      source: "text",
-      selector: "h3.tag"
+      type: 'string',
+      default: ''
     },
+    // no source/selector
     gridClass: {
       type: 'string',
-      default: 'grid-bottom grid-bottom-right' // Default value for gridClass
+      default: 'grid-bottom grid-bottom-right'
+    },
+    heroImage: {
+      type: 'object',
+      default: null
+    },
+    linkURL: {
+      type: 'string',
+      default: ''
     }
   },
   edit: EditComponent,
@@ -341,55 +348,26 @@ function EditComponent({
   attributes,
   setAttributes
 }) {
+  // Destructure ALL attributes at once:
   const {
     textColor,
     title,
-    excerpt
+    excerpt,
+    gridClass,
+    heroImage,
+    linkURL
   } = attributes;
-  const {
-    gridClass
-  } = attributes; // Destructure attributes to access gridClass and textColor
-
-  const [posts, setPosts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [loading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  const [error, setError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const fetchPosts = wp.apiFetch({
-      path: '/wp/v2/posts?categories=23&per_page=10&_embed'
-    });
-    const fetchFolio = wp.apiFetch({
-      path: '/wp/v2/folio?categories=23&per_page=10&_embed'
-    });
-    Promise.all([fetchPosts, fetchFolio]).then(([postsResponse, folioResponse]) => {
-      const combinedPosts = [...postsResponse, ...folioResponse];
-      setPosts(combinedPosts);
-      setLoading(false);
-    }).catch(err => {
-      console.error('API fetch error:', err);
-      setError(err);
-      setLoading(false);
-    });
-  }, []);
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     style: {
       color: textColor
     }
-  }); // Add block props for the main block
-
-  if (loading) {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null);
-  }
-  if (error) {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Notice, {
-      status: "error",
-      isDismissible: true
-    }, "There was an error loading posts.");
-  }
+  });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: "Hero Text Color"
+    title: "Text & Layout",
+    initialOpen: true
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.PanelColorSettings, {
     title: "Text Color",
-    initialOpen: true,
+    initialOpen: false,
     colorSettings: [{
       value: textColor,
       onChange: color => setAttributes({
@@ -397,10 +375,8 @@ function EditComponent({
       }),
       label: 'Text Color'
     }]
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: "Hero Heading Position"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
-    label: "Select Grid Position",
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+    label: "Grid Position",
     value: gridClass,
     options: [{
       label: 'Bottom Left',
@@ -421,12 +397,72 @@ function EditComponent({
       label: 'Center Right',
       value: 'grid-center-right'
     }],
-    onChange: newGridClass => setAttributes({
-      gridClass: newGridClass
-    }) // Update gridClass attribute
-  }))), posts.length === 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No posts found.") : posts.map(post => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: post.id
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onChange: newGrid => setAttributes({
+      gridClass: newGrid
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: "Hero Image",
+    initialOpen: !heroImage // auto‑open only when no image
+    ,
+    className: heroImage ? 'has-image' : ''
+  }, heroImage ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: heroImage.url,
+    alt: heroImage.alt || '',
+    style: {
+      width: '100%',
+      height: 'auto',
+      display: 'block',
+      marginBottom: '8px'
+    }
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isSecondary: true,
+    onClick: () => setAttributes({
+      heroImage: null
+    })
+  }, "Remove Image"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+    onSelect: media => setAttributes({
+      heroImage: {
+        id: media.id,
+        url: media.url,
+        alt: media.alt
+      }
+    }),
+    allowedTypes: ['image'],
+    value: heroImage.id,
+    render: ({
+      open
+    }) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      style: {
+        marginLeft: '8px'
+      },
+      isSecondary: true,
+      onClick: open
+    }, "Replace Image")
+  })))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+    onSelect: media => setAttributes({
+      heroImage: {
+        id: media.id,
+        url: media.url,
+        alt: media.alt
+      }
+    }),
+    allowedTypes: ['image'],
+    render: ({
+      open
+    }) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      onClick: open,
+      isSecondary: true
+    }, "Upload/Select Image")
+  })))), "                ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: "Link Settings",
+    initialOpen: true
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.URLInputButton, {
+    label: "Hero Link URL",
+    url: linkURL,
+    onChange: newUrl => setAttributes({
+      linkURL: newUrl
+    })
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wrapper",
     id: "PentaHeader"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -437,39 +473,38 @@ function EditComponent({
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_penta_nav_js__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `tag-and-title ${gridClass}`,
     id: "TagAndTitle"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "h3",
     className: "title",
-    value: title || post.title.rendered || 'Default Title',
+    value: title || '',
     onChange: newText => setAttributes({
       title: newText
     }),
-    placeholder: "Add title here"
+    placeholder: "Add Title Here"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "h3",
     className: "tag",
-    value: excerpt || post.excerpt.rendered || 'Tag Here',
+    value: excerpt || '',
     onChange: newText => setAttributes({
       excerpt: newText
     }),
     placeholder: "Add excerpt here"
-  }))), post._embedded && post._embedded['wp:featuredmedia'] && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "#",
+  })), heroImage && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: attributes.linkURL || '#',
+    target: "_blank",
     className: "main-grid-bleed"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: post._embedded['wp:featuredmedia'][0].source_url,
-    alt: post.title.rendered,
+    src: heroImage.url,
+    alt: heroImage.alt || title,
     style: {
       height: '100vh',
       width: '100%',
       objectFit: 'cover'
     }
-  })))))));
+  })))));
 }
 function SaveComponent() {
-  return null; // Using PHP template for rendering
+  return null;
 }
 /******/ })()
 ;

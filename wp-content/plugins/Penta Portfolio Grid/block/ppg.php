@@ -45,14 +45,31 @@ $paddingTop = isset($attributes['paddingTop']) ? esc_attr($attributes['paddingTo
 $paddingBottom = isset($attributes['paddingBottom']) ? esc_attr($attributes['paddingBottom']) : '0px';
 
 // Prepare WP_Query arguments
+// Extract category IDs from the attribute array of objects
+$selected = array_map(
+    function( $cat ) {
+        return isset( $cat['id'] ) ? intval( $cat['id'] ) : 0;
+    },
+    $attributes['selectedCategories'] ?? []
+);
+
+// Filter out any zeros or invalid entries
+$category_ids = array_filter( $selected );
+
+// Build query args
 $args = [
     'post_type'      => 'any',
-    'posts_per_page' => intval($attributes['numberOfItems'] ?? 5),
-    'order'          => $attributes['order'] ?? 'DESC',
+    'posts_per_page' => intval( $attributes['numberOfItems'] ?? 5 ),
+    'order'          => $attributes['order']   ?? 'DESC',
     'orderby'        => $attributes['orderBy'] ?? 'date',
 ];
 
-$folio = new WP_Query($args); // Execute query with the prepared arguments
+// Only add the category filter if we have at least one
+if ( ! empty( $category_ids ) ) {
+    $args['category__in'] = $category_ids;
+}
+
+$folio = new WP_Query( $args ); // Execute query with the prepared arguments
 
 if ($folio->have_posts()) :
     $containers = [];
