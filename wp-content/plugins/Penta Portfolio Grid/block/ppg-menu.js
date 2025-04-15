@@ -1,5 +1,5 @@
-import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import { useState, useEffect } from '@wordpress/element';
 
 const PPGmenu = ({
   menuLocation     = 'folioFilter',
