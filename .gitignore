@@ -1,0 +1,12 @@
+# Ignore WordPress uploads
+wp-content/uploads/
+
+# Node modules
+node_modules/
+
+# Build artifacts
+build/
+
+# macOS metadata
+.DS_Store
+wp-content/uploads/**/*.DS_Store
