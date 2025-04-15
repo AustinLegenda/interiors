@@ -13,5 +13,5 @@ jobs:
       with:
         server: ftp.legenda.co
         username: austin@legenda.co
-        password: ${{ secrets.FTP_DEPLOY }}
+        password: ${{ secrets.ITS_A_SECRET }}
       
