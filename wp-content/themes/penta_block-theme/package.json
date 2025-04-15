@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "wp-scripts start src/index.js penta-blocks/penta-header-hero.js penta-blocks/penta-article-block.js penta-blocks/penta-footer-block.js penta-blocks/penta-header-block.js penta-blocks/penta-blog-block.js penta-blocks/penta-work-block.js",
+    "start": "wp-scripts start src/index.js penta-blocks/penta-header-hero.js penta-blocks/penta-article-block.js penta-blocks/penta-header-block.js penta-blocks/penta-blog-block.js penta-blocks/penta-work-block.js",
     "dev": "wp-scripts start",
     "devFast": "wp-scripts start",
     "test": "echo \"Error: no test specified\" && exit 1"

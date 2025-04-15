@@ -46,6 +46,7 @@ if (empty($all_ids)) {
 ?>
 
 <div id="work"></div>
+<div class="main-grid">
 <div class="cat-menu-container-work main-grid-full">
   <nav class="folio-menu-container" aria-label="Category Menu">
     <ul>
@@ -69,6 +70,7 @@ if (empty($all_ids)) {
 </div>
 
 <!-- Posts Container -->
+
 <div id="folio" class="main-grid-full target-container" style="<?php echo $container_style; ?>">
   <!-- AJAX Target Container -->
   <div class="folio-wrapper">
@@ -132,3 +134,5 @@ if (empty($all_ids)) {
       ?>
     </div>
   </div>
+</div>
+</div>

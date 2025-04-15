@@ -245,28 +245,31 @@ function EditComponent({ attributes, setAttributes }) {
           )}
         </PanelBody>
       </InspectorControls>
-
-<div id="folio" className="main-grid-full target-container"
- style={{
-  paddingLeft: paddingLeftRight,
-  paddingRight: paddingLeftRight,
-  paddingTop: paddingTop,
-  paddingBottom: paddingBottom,
-}}
->
-      <div
-        className="folio-wrapper"
+      <div class="main-grid">
+      <PPGmenu
+        menuLocation="folioFilter"
+        onMenuLoad={handleMenuLoad}
+        onCategorySelect={handleCategorySelect}
+      />
+     
+      <div id="folio" className="main-grid-full target-container"
+        style={{
+          paddingLeft: paddingLeftRight,
+          paddingRight: paddingLeftRight,
+          paddingTop: paddingTop,
+          paddingBottom: paddingBottom,
+        }}
       >
-        <PPGmenu
-          menuLocation="folioFilter"
-          onMenuLoad={handleMenuLoad}
-          onCategorySelect={handleCategorySelect}
-        />
-        {posts.length === 0 ? (
-          <p>{__('No posts found.', 'pentablocktheme')}</p>
-        ) : (
-          renderFolioContainers(posts)
-        )}
+        <div
+          className="folio-wrapper"
+        >
+
+          {posts.length === 0 ? (
+            <p>{__('No posts found.', 'pentablocktheme')}</p>
+          ) : (
+            renderFolioContainers(posts)
+          )}
+        </div>
       </div>
     </div>
     </div>
