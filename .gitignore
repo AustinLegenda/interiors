@@ -7,6 +7,9 @@ node_modules/
 # Build artifacts
 build/
 
+# Don’t ever track a nested repo
+interiors.git/
+
 # macOS metadata
 .DS_Store
 wp-content/uploads/**/*.DS_Store
