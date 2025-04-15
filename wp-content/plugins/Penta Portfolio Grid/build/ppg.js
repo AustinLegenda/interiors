@@ -572,25 +572,28 @@ function EditComponent({
           })]
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      id: "folio",
-      className: "main-grid-full target-container",
-      style: {
-        paddingLeft: paddingLeftRight,
-        paddingRight: paddingLeftRight,
-        paddingTop: paddingTop,
-        paddingBottom: paddingBottom
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "folio-wrapper",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ppg_menu__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          menuLocation: "folioFilter",
-          onMenuLoad: handleMenuLoad,
-          onCategorySelect: handleCategorySelect
-        }), posts.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No posts found.', 'pentablocktheme')
-        }) : renderFolioContainers(posts)]
-      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      class: "main-grid",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ppg_menu__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        menuLocation: "folioFilter",
+        onMenuLoad: handleMenuLoad,
+        onCategorySelect: handleCategorySelect
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        id: "folio",
+        className: "main-grid-full target-container",
+        style: {
+          paddingLeft: paddingLeftRight,
+          paddingRight: paddingLeftRight,
+          paddingTop: paddingTop,
+          paddingBottom: paddingBottom
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "folio-wrapper",
+          children: posts.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No posts found.', 'pentablocktheme')
+          }) : renderFolioContainers(posts)
+        })
+      })]
     })]
   });
 }

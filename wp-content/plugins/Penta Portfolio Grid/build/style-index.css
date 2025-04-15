@@ -6,6 +6,13 @@
 Composition
 Main & repeating composition of Elements and blocks
 */
+.target-container {
+  width: 100%;
+  max-width: 1400px;
+  place-self: center;
+  grid-row: 4;
+  }
+
 .folio-menu-container{
   margin: 30px 0 30px 0;
 }
@@ -16,13 +23,7 @@ Main & repeating composition of Elements and blocks
   justify-content: space-evenly;
   gap: 30px;
 }
-.folio-wrapper{
-    width: 100%;
-    max-width: 1400px;
-    place-self: center;
-    grid-row: 4;
-    
-}
+
 .folio-container {
     margin-bottom: 30px;
     display: grid;

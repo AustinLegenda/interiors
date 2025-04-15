@@ -38,17 +38,21 @@ function themename_custom_header_setup()
 add_action('after_setup_theme', 'themename_custom_header_setup');
 
 // Images
-add_action('after_setup_theme', 'imageSizes');
-function imageSizes()
-{
-    add_image_size("16:9", 1400, 784, true);
-    add_image_size("3:2", 1400, 924, true);
-    add_image_size("3:4", 1400, 1050, true);
-    add_image_size("s_sq_nc", 350, 350);
-    add_image_size("L_sq_nc", 700, 700);
-    add_image_size('hero_image', 2500, 1650);
-    add_theme_support('post-thumbnails');
+add_action( 'after_setup_theme', 'mytheme_register_image_sizes' );
+function mytheme_register_image_sizes() {
+    // register thumbnails support first
+    add_theme_support( 'post-thumbnails' );
+
+    // valid slugs: no colons or spaces
+    add_image_size( 'ratio-16-9', 1400,  784,  true );
+    add_image_size( 'ratio-3-2',  1400,  924,  true );
+    add_image_size( 'ratio-3-4',  1400, 1050,  true );
+    add_image_size( 'small-square',  350,  350, false );
+    add_image_size( 'large-square',  700,  700, false );
+    add_image_size( 'hero-image',   2048, 1360, false );
 }
+
+
 
 // Block theme customization
 function pentaTheme_setup() {
@@ -115,9 +119,36 @@ new JSXBlock('penta-header-hero', true);
 new JSXBlock('penta-article-block', true);
 new JSXBlock('penta-blog-block', true);
 new JSXBlock('penta-work-block', true);
-new JSXBlock('penta-footer-block');
 new JSXBlock('penta-header-block', true);
 
+/**
+ * Register Custom Patterns
+ */
+// 1) Include the patterns definitions
+require_once get_template_directory() . '/inc/block-patterns.php';
+
+// 2) Register on init
+function mytheme_register_patterns() {
+    // Optional: register a custom category
+    register_block_pattern_category( 'footers', [
+        'label' => __( 'Footers', 'text-domain' ),
+    ] );
+
+    foreach ( mytheme_get_patterns() as $pattern ) {
+        register_block_pattern(
+            $pattern['name'],
+            [
+                'title'       => $pattern['title'],
+                'description' => $pattern['description'],
+                'categories'  => $pattern['categories'],
+                'keywords'    => $pattern['keywords'],
+                'content'     => $pattern['content'],
+            ]
+        );
+    }
+}
+add_action( 'init', 'mytheme_register_patterns' );
+  
 
 //remove the P
 
@@ -228,3 +259,10 @@ function legenda_custom_head_content() {
     echo '<link rel="manifest" href="">' . "\n";
 }
 add_action( 'wp_head', 'legenda_custom_head_content', 1 );
+
+add_action( 'wp_footer', function() {
+    echo '<pre style="background:#fff; padding:1em;">';
+    print_r( get_intermediate_image_sizes() );
+    echo '</pre>';
+} );
+
