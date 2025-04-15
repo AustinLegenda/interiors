@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Front‑end template for Penta Blog Block using jQuery AJAX.
  *
@@ -16,7 +17,7 @@ $tagName            = isset($attributes['tagName'])          ? esc_html($attribu
 
 // Build outer container style
 $container_style = 'padding-left: ' . $paddingLeftRight . '; padding-right: ' . $paddingLeftRight .
-                 '; padding-top: ' . $paddingTop . '; padding-bottom: ' . $paddingBottom . '; color: ' . $textColor . ';';
+  '; padding-top: ' . $paddingTop . '; padding-bottom: ' . $paddingBottom . '; color: ' . $textColor . ';';
 
 // 2) Load menu items
 $locations = get_nav_menu_locations();
@@ -54,8 +55,8 @@ if (empty($all_ids)) {
         </a>
       </li>
       <?php foreach ($menu_items as $item) :
-              if ('category' !== $item->object) continue;
-              $cat_id = (int) $item->object_id;
+        if ('category' !== $item->object) continue;
+        $cat_id = (int) $item->object_id;
       ?>
         <li>
           <a class="cat-menu-item" data-category="<?php echo $cat_id; ?>" href="#">
@@ -74,49 +75,60 @@ if (empty($all_ids)) {
     <div class="folio-container nav-toggle">
       <?php
       $x = 0;
+      // 1) Build your dynamic post type list:
+      $post_types = get_post_types(
+        [
+          'public'               => true,
+          'exclude_from_search'  => false,
+        ],
+        'names'
+      );
+
+      // 2) Remove the ones you don’t want:
+      unset($post_types['page']);
       $folio = new WP_Query(array(
-        'post_type'      => 'any',
-		'category__in'   => $all_ids,
+        'post_type'           => array_values($post_types),  // <-- here!
+        'category__in'   => $all_ids,
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
         'order'          => 'DESC',
         'posts_per_page' => -1,
       ));
 
-	  while ( $folio->have_posts() ) : 
-		$folio->the_post();
-		// Use WP_Query's current_post property which is zero-indexed.
-		$currentIndex = $folio->current_post;
-		
-		// Get the object position for the current post, default to center (50% 50%)
-		$objectPositionX = isset( $objectPositions[$currentIndex]['x'] ) ? $objectPositions[$currentIndex]['x'] : 50;
-		$objectPositionY = isset( $objectPositions[$currentIndex]['y'] ) ? $objectPositions[$currentIndex]['y'] : 50;
-		$objectPositionStyle = "object-position: {$objectPositionX}% {$objectPositionY}%;";
-		
-		// Output the post thumbnail with the inline style for object position.
-		echo '<div class="item-folio">';
-		  echo '<div class="folio-snippet">';
-			echo '<a class="folio-els-container" href="' . get_the_permalink() . '">';
-			  // Get the post thumbnail HTML.
-			  $thumbHTML = get_the_post_thumbnail( get_the_ID(), 'large' );
-			  if ( $thumbHTML ) {
-				  // Inject the object-position style into the img tag.
-				  $thumbHTML = str_replace( '<img', '<img style="width:100%; height:100%; object-fit:cover; ' . $objectPositionStyle . '"', $thumbHTML );
-				  echo $thumbHTML;
-			  }
-			  echo '<div class="folio-intro">';
-				echo '<h4 style="color:' . $textColor . '; margin:0;">' . get_the_title() . '</h4>';
-			  echo '</div>';
-			echo '</a>';
-		  echo '</div>';
-		echo '</div>';
-		
-		// Handle closing/opening of container groups as needed...
-		if ( ($currentIndex + 1) % 5 === 0 ) {
-			echo '</div><div class="folio-container nav-toggle">';
-		}
-	endwhile;
-	wp_reset_postdata();
-		  ?>
+      while ($folio->have_posts()) :
+        $folio->the_post();
+        // Use WP_Query's current_post property which is zero-indexed.
+        $currentIndex = $folio->current_post;
+
+        // Get the object position for the current post, default to center (50% 50%)
+        $objectPositionX = isset($objectPositions[$currentIndex]['x']) ? $objectPositions[$currentIndex]['x'] : 50;
+        $objectPositionY = isset($objectPositions[$currentIndex]['y']) ? $objectPositions[$currentIndex]['y'] : 50;
+        $objectPositionStyle = "object-position: {$objectPositionX}% {$objectPositionY}%;";
+
+        // Output the post thumbnail with the inline style for object position.
+        echo '<div class="item-folio">';
+        echo '<div class="folio-snippet">';
+        echo '<a class="folio-els-container" href="' . get_the_permalink() . '">';
+        // Get the post thumbnail HTML.
+        $thumbHTML = get_the_post_thumbnail(get_the_ID(), 'large');
+        if ($thumbHTML) {
+          // Inject the object-position style into the img tag.
+          $thumbHTML = str_replace('<img', '<img style="width:100%; height:100%; object-fit:cover; ' . $objectPositionStyle . '"', $thumbHTML);
+          echo $thumbHTML;
+        }
+        echo '<div class="folio-intro">';
+        echo '<h4 style="color:' . $textColor . '; margin:0;">' . get_the_title() . '</h4>';
+        echo '</div>';
+        echo '</a>';
+        echo '</div>';
+        echo '</div>';
+
+        // Handle closing/opening of container groups as needed...
+        if (($currentIndex + 1) % 5 === 0) {
+          echo '</div><div class="folio-container nav-toggle">';
+        }
+      endwhile;
+      wp_reset_postdata();
+      ?>
+    </div>
   </div>
-</div>

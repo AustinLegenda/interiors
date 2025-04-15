@@ -1,31 +1,32 @@
 import { useBlockProps, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { useState, useEffect, useRef, createElement } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
 import { Spinner, Notice, PanelBody, RangeControl, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import PPGmenu from './ppg-menu';
+import apiFetch from '@wordpress/api-fetch';
+
 
 // Helper functions
 const sanitizeNumber = (num) => Number.isInteger(num) ? num : 0;
-const sanitizeArray  = (arr) => Array.isArray(arr) ? arr : [];
+const sanitizeArray = (arr) => Array.isArray(arr) ? arr : [];
 const sanitizeString = (str) => typeof str === 'string' ? str : '';
 
 wp.blocks.registerBlockType('pentaportfoliogrid/ppg', {
-  title:      __('Penta Portfolio Grid', 'ppg'),
-  icon:       'grid-view',
-  category:   'media',
+  title: __('Penta Portfolio Grid', 'ppg'),
+  icon: 'grid-view',
+  category: 'media',
   attributes: {
-    textColor:          { type: 'string', default: '#222' },
-    tagName:            { type: 'string', default: 'h4' },
-    title:              { type: 'string', source: 'text', default: __('Default Title', 'pentaportfoliogrid') },
-    paddingLeftRight:   { type: 'string', default: '35px' },
-    paddingTop:         { type: 'string', default: '30px' },
-    paddingBottom:      { type: 'string', default: '0px' },
-    selectedCategories: { type: 'array',  default: [] },
-    numberOfItems:      { type: 'number', default: 5 },
-    order:              { type: 'string', default: 'desc' },
-    orderBy:            { type: 'string', default: 'date' },
-    objectPositions:    { type: 'array',  default: [] },
+    textColor: { type: 'string', default: '#222' },
+    tagName: { type: 'string', default: 'h4' },
+    title: { type: 'string', source: 'text', default: __('Default Title', 'pentaportfoliogrid') },
+    paddingLeftRight: { type: 'string', default: '35px' },
+    paddingTop: { type: 'string', default: '30px' },
+    paddingBottom: { type: 'string', default: '0px' },
+    selectedCategories: { type: 'array', default: [] },
+    numberOfItems: { type: 'number', default: 5 },
+    order: { type: 'string', default: 'desc' },
+    orderBy: { type: 'string', default: 'date' },
+    objectPositions: { type: 'array', default: [] },
   },
   edit: EditComponent,
   save: () => null,
@@ -38,18 +39,18 @@ function EditComponent({ attributes, setAttributes }) {
     objectPositions,
   } = attributes;
 
-  const [posts, setPosts]                     = useState([]);
-  const [loading, setLoading]                 = useState(true);
-  const [error, setError]                     = useState(null);
-  const [categoryIds, setCategoryIds]         = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [categoryIds, setCategoryIds] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [selectedElementIndex, setSelectedElementIndex] = useState(null);
-  const [objectPositionX, setObjectPositionX]           = useState(50);
-  const [objectPositionY, setObjectPositionY]           = useState(50);
+  const [objectPositionX, setObjectPositionX] = useState(50);
+  const [objectPositionY, setObjectPositionY] = useState(50);
 
   const imageRefs = useRef([]);
-  const cacheRef  = useRef({});
+  const cacheRef = useRef({});
 
   // Fetch posts when categoryIds or selectedCategory change
   useEffect(() => {
@@ -66,11 +67,11 @@ function EditComponent({ attributes, setAttributes }) {
     }
 
     const base = `/custom/v1/all-posts?categories=${categoriesParam}` +
-               `&per_page=-1` +
-               `&orderby=${attributes.orderBy}` +
-               `&order=${attributes.order}` +
-               `&_embed`;;
-    const key  = `${categoriesParam}-${attributes.numberOfItems}-${attributes.order}-${attributes.orderBy}`;
+      `&per_page=-1` +
+      `&orderby=${attributes.orderBy}` +
+      `&order=${attributes.order}` +
+      `&_embed`;;
+    const key = `${categoriesParam}-${attributes.numberOfItems}-${attributes.order}-${attributes.orderBy}`;
 
     if (cacheRef.current[key]) {
       setPosts(cacheRef.current[key]);
@@ -98,7 +99,7 @@ function EditComponent({ attributes, setAttributes }) {
   const blockProps = useBlockProps({ style: { color: textColor } });
 
   if (loading) return <Spinner />;
-  if (error)   return <Notice status="error">{__('There was an error loading posts.', 'pentablocktheme')}</Notice>;
+  if (error) return <Notice status="error">{__('There was an error loading posts.', 'pentablocktheme')}</Notice>;
 
   const handleMenuLoad = (ids) => setCategoryIds(ids);
   const handleCategorySelect = (id) => setSelectedCategory(id);
@@ -146,12 +147,12 @@ function EditComponent({ attributes, setAttributes }) {
           <div className="folio-snippet">
             <a href={post.link} className="folio-els-container">
               <img
-              src={sanitizeString(post.featured_img_src)}
-              alt={sanitizeString(post.title)}
+                src={sanitizeString(post.featured_img_src)}
+                alt={sanitizeString(post.title)}
                 loading="lazy"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos.x}% ${pos.y}%` }}
               />
-              {createElement(tagName, { style: { color: textColor, margin: 0 } }, sanitizeString(post.title)|| __('Default Title', 'pentaportfoliogrid'))}
+              {createElement(tagName, { style: { color: textColor, margin: 0 } }, sanitizeString(post.title) || __('Default Title', 'pentaportfoliogrid'))}
             </a>
           </div>
         </div>
@@ -245,27 +246,29 @@ function EditComponent({ attributes, setAttributes }) {
         </PanelBody>
       </InspectorControls>
 
-     
-        <div
-          className="folio-wrapper"
-          style={{
-            paddingLeft:  paddingLeftRight,
-            paddingRight: paddingLeftRight,
-            paddingTop:    paddingTop,
-            paddingBottom: paddingBottom,
-          }}
-        >
-           <PPGmenu
-        menuLocation="folioFilter"
-        onMenuLoad={handleMenuLoad}
-        onCategorySelect={handleCategorySelect}
-      />
-       {posts.length === 0 ? (
-        <p>{__('No posts found.', 'pentablocktheme')}</p>
-      ) : (
+<div id="folio" className="main-grid-full target-container"
+ style={{
+  paddingLeft: paddingLeftRight,
+  paddingRight: paddingLeftRight,
+  paddingTop: paddingTop,
+  paddingBottom: paddingBottom,
+}}
+>
+      <div
+        className="folio-wrapper"
+      >
+        <PPGmenu
+          menuLocation="folioFilter"
+          onMenuLoad={handleMenuLoad}
+          onCategorySelect={handleCategorySelect}
+        />
+        {posts.length === 0 ? (
+          <p>{__('No posts found.', 'pentablocktheme')}</p>
+        ) : (
           renderFolioContainers(posts)
-        )} 
-        </div> 
+        )}
+      </div>
+    </div>
     </div>
   );
 }
