@@ -4,10 +4,9 @@ Composition
 Main & repeating composition of Elements and blocks
 */
 .target-container {
-  width: 100%;
+  margin:auto;
   max-width: 1400px;
-  place-self: center;
-  grid-row: 4;
+
   }
 
 .folio-menu-container{
@@ -49,7 +48,6 @@ Main & repeating composition of Elements and blocks
   }
 
   .cat-menu-container-work{
-    grid-row: 3;
 margin-top: 60px;
   }
 /* 

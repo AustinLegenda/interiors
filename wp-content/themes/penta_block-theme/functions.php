@@ -37,23 +37,6 @@ function themename_custom_header_setup()
 }
 add_action('after_setup_theme', 'themename_custom_header_setup');
 
-// Images
-add_action( 'after_setup_theme', 'mytheme_register_image_sizes' );
-function mytheme_register_image_sizes() {
-    // register thumbnails support first
-    add_theme_support( 'post-thumbnails' );
-
-    // valid slugs: no colons or spaces
-    add_image_size( 'ratio-16-9', 1400,  784,  true );
-    add_image_size( 'ratio-3-2',  1400,  924,  true );
-    add_image_size( 'ratio-3-4',  1400, 1050,  true );
-    add_image_size( 'small-square',  350,  350, false );
-    add_image_size( 'large-square',  700,  700, false );
-    add_image_size( 'hero-image',   2048, 1360, false );
-}
-
-
-
 // Block theme customization
 function pentaTheme_setup() {
     // Enable support for the block editor
@@ -116,7 +99,6 @@ class JSXBlock
 }
 // Registering multiple blocks dynamically using JSXBlock
 new JSXBlock('penta-header-hero', true);
-new JSXBlock('penta-article-block', true);
 new JSXBlock('penta-blog-block', true);
 new JSXBlock('penta-work-block', true);
 new JSXBlock('penta-header-block', true);

@@ -245,14 +245,14 @@ function EditComponent({ attributes, setAttributes }) {
           )}
         </PanelBody>
       </InspectorControls>
-      <div class="main-grid">
+     
       <PPGmenu
         menuLocation="folioFilter"
         onMenuLoad={handleMenuLoad}
         onCategorySelect={handleCategorySelect}
       />
      
-      <div id="folio" className="main-grid-full target-container"
+      <div id="folio" className="target-container"
         style={{
           paddingLeft: paddingLeftRight,
           paddingRight: paddingLeftRight,
@@ -272,7 +272,7 @@ function EditComponent({ attributes, setAttributes }) {
         </div>
       </div>
     </div>
-    </div>
+    
   );
 }
 
