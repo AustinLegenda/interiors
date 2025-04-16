@@ -89,6 +89,11 @@ Main & repeating composition of Elements and blocks
   height: 100vh;
 }
 
+.is-not-wide {
+  max-width: 1400px;
+  margin: auto;
+}
+
 /* Hero and Nav
    ========================================================================== */
 .wrapper {
@@ -286,6 +291,10 @@ header .penta-article-group {
 /**
    * Page Template
    */
+.span-left, .span-right {
+  grid-column: span 3;
+}
+
 .wpcf7-form {
   display: flex;
   flex-direction: column;
@@ -538,7 +547,7 @@ h2 {
   font-size: clamp(31.45px, 3vw, 48px);
 }
 
-h3 {
+.wp-block-post-excerpt p, h3 {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 25.34px;
   font-weight: 500;
@@ -552,7 +561,10 @@ label {
   font-weight: 400;
 }
 
-h5 {
+h5,
+.wp-block-post-terms a,
+.wp-block-post-terms .wp-block-post-terms__separator,
+.wp-block-post-navigation-link {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: clamp(11.74px, 3vw, 19px);
   font-weight: 400;
@@ -1458,6 +1470,12 @@ media queries, alternative states, changes to default WP styles
   }
 }
 @media only screen and (min-width: 1000px) {
+  .span-left {
+    grid-column: span 1;
+  }
+  .span-right {
+    grid-column: span 2;
+  }
   .one-third-col {
     grid-template-columns: 50% auto auto;
   }

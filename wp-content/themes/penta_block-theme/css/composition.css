@@ -85,7 +85,10 @@ place-self: center start;
   height: 100vh;
 }
 
-
+.is-not-wide{
+  max-width:1400px;
+  margin:auto;
+}
 
 /* Hero and Nav
    ========================================================================== */
@@ -297,6 +300,10 @@ header .penta-article-group {
 /**
    * Page Template
    */
+
+   .span-left, .span-right{
+grid-column: span 3;
+   }
 
 .wpcf7-form {
   display: flex;

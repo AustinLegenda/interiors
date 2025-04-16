@@ -242,9 +242,4 @@ function legenda_custom_head_content() {
 }
 add_action( 'wp_head', 'legenda_custom_head_content', 1 );
 
-add_action( 'wp_footer', function() {
-    echo '<pre style="background:#fff; padding:1em;">';
-    print_r( get_intermediate_image_sizes() );
-    echo '</pre>';
-} );
 
