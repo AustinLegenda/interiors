@@ -39,12 +39,13 @@ const PPGmenu = ({
   }
 
   return (
-    <nav className="folio-menu-container" aria-label="Category Menu">
+    <div class="ppg-menu-wrapper">
+    <nav className="ppg-menu-container" aria-label="Category Menu">
       <ul>
         <li>
           <a
             href="#"
-            className="cat-menu-item"
+            className="ppg-menu-item"
             onClick={(e) => {
               e.preventDefault();
               onCategorySelect(null);
@@ -61,7 +62,7 @@ const PPGmenu = ({
             <li key={item.ID}>
               <a
                 href="#"
-                className="cat-menu-item"
+                className="ppg-menu-item"
                 onClick={(e) => {
                   e.preventDefault();
                   onCategorySelect(item.object_id);
@@ -74,6 +75,7 @@ const PPGmenu = ({
         })}
       </ul>
     </nav>
+    </div>
   );
 };
 

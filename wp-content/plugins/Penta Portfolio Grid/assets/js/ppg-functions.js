@@ -1,7 +1,7 @@
 function initFolioLayout() {
-    var b = Array.from(document.getElementsByClassName("folio-container"));
-    var c = Array.from(document.getElementsByClassName("item-folio"));
-    let y = document.querySelector(".folio-wrapper");
+    var b = Array.from(document.getElementsByClassName("ppg-item-wrapper"));
+    var c = Array.from(document.getElementsByClassName("ppg-item-size"));
+    let y = document.querySelector(".ppg-container");
   
     var fullCount = 0;
   
@@ -28,7 +28,7 @@ function initFolioLayout() {
       } else { }
       var x = Array.from(document.getElementsByClassName("full"));
       x.forEach((d) => {
-        var foo = d.querySelector(".item-folio");
+        var foo = d.querySelector(".ppg-item-size");
         foo.classList.add("--big");
         //add big class to first child of every container that has 5 elements
       });

@@ -1,6 +1,6 @@
 (function ($) {
   $(document).ready(function() {
-    $(document).on('click', '.cat-menu-item', function(e) {
+    $(document).on('click', '.ppg-menu-item', function(e) {
       e.preventDefault(); //stop link from going to cat-archieve page. 
 
       var category = $(this).data('category');
@@ -14,7 +14,7 @@
         success: function (result) {
          
 
-          $('.target-container').html(result);
+          $('.ppg-container').html(result);
           initFolioLayout();
         },
         error: function (result) {

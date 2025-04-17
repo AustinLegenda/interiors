@@ -39,15 +39,23 @@ function filter_folio()
     $x = 0;
 
 
-    echo '<div class="folio-container nav-toggle">';
+    echo '<div class="ppg-item-wrapper">';
     while ($query->have_posts()) {
       $query->the_post();
       $x++;
-      echo '<div class="item-folio">';
-      require(get_template_directory() . '/inc/snippet-folio.php');
+      echo '<div class="ppg-item-size">';
+      echo '<div class="ppg-item-container">';
+      echo '<a class="ppg-item" href="' . get_the_permalink() . '"> ';
+      the_post_thumbnail();
+      echo '<div class="ppg-item-title">';
+      echo '<h4>' . get_the_title() . '</h4>';
+      echo '</div>';
+
+      echo '</a>';
+      echo '</div>';
       echo '</div>';
       if ($x % 5 === 0) {
-        echo '</div><div class="folio-container nav-toggle">';
+        echo '</div><div class="ppg-item-wrapper">';
       }
     }
     echo '</div>';
