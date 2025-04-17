@@ -140,12 +140,12 @@ function EditComponent({ attributes, setAttributes }) {
         <div
           key={post.id}
           ref={(el) => (imageRefs.current[i] = el)}
-          className="item-folio"
+          className="ppg-item-size"
           onClick={() => handleImageClick(i)}
           style={{ cursor: 'pointer', border: selectedElementIndex === i ? '2px solid blue' : 'none' }}
         >
-          <div className="folio-snippet">
-            <a href={post.link} className="folio-els-container">
+          <div className="ppg-item-container">
+            <a href={post.link} className="ppg-item">
               <img
                 src={sanitizeString(post.featured_img_src)}
                 alt={sanitizeString(post.title)}
@@ -161,7 +161,7 @@ function EditComponent({ attributes, setAttributes }) {
         const cls = getContainerClass(containers.length, buf.length, fiveCount);
         if (buf.length === 5) fiveCount++;
         containers.push(
-          <div className={`folio-container nav-toggle ${cls}`} key={containers.length}>
+          <div className={`ppg-item-wrapper ${cls}`} key={containers.length}>
             {buf.map((child, idx) => {
               const isBig = buf.length === 5 && idx === 0;
               const reverse = isBig && fiveCount % 2 === 0;
@@ -252,7 +252,7 @@ function EditComponent({ attributes, setAttributes }) {
         onCategorySelect={handleCategorySelect}
       />
      
-      <div id="folio" className="target-container"
+      <div className="ppg-wrapper"
         style={{
           paddingLeft: paddingLeftRight,
           paddingRight: paddingLeftRight,
@@ -261,7 +261,7 @@ function EditComponent({ attributes, setAttributes }) {
         }}
       >
         <div
-          className="folio-wrapper"
+          className="ppg-container"
         >
 
           {posts.length === 0 ? (

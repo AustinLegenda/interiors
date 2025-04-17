@@ -55,40 +55,43 @@ const PPGmenu = ({
       children: "Loading menu\u2026"
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("nav", {
-    className: "folio-menu-container",
-    "aria-label": "Category Menu",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-          href: "#",
-          className: "cat-menu-item",
-          onClick: e => {
-            e.preventDefault();
-            onCategorySelect(null);
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
-            children: "All"
-          })
-        })
-      }), menuItems.map(item => {
-        if (item.object !== 'category') {
-          return null;
-        }
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    class: "ppg-menu-wrapper",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("nav", {
+      className: "ppg-menu-container",
+      "aria-label": "Category Menu",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
             href: "#",
-            className: "cat-menu-item",
+            className: "ppg-menu-item",
             onClick: e => {
               e.preventDefault();
-              onCategorySelect(item.object_id);
+              onCategorySelect(null);
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
-              children: item.title
+              children: "All"
             })
           })
-        }, item.ID);
-      })]
+        }), menuItems.map(item => {
+          if (item.object !== 'category') {
+            return null;
+          }
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+              href: "#",
+              className: "ppg-menu-item",
+              onClick: e => {
+                e.preventDefault();
+                onCategorySelect(item.object_id);
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+                children: item.title
+              })
+            })
+          }, item.ID);
+        })]
+      })
     })
   });
 };
@@ -433,17 +436,17 @@ function EditComponent({
       };
       buf.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         ref: el => imageRefs.current[i] = el,
-        className: "item-folio",
+        className: "ppg-item-size",
         onClick: () => handleImageClick(i),
         style: {
           cursor: 'pointer',
           border: selectedElementIndex === i ? '2px solid blue' : 'none'
         },
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: "folio-snippet",
+          className: "ppg-item-container",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
             href: post.link,
-            className: "folio-els-container",
+            className: "ppg-item",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
               src: sanitizeString(post.featured_img_src),
               alt: sanitizeString(post.title),
@@ -467,7 +470,7 @@ function EditComponent({
         const cls = getContainerClass(containers.length, buf.length, fiveCount);
         if (buf.length === 5) fiveCount++;
         containers.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          className: `folio-container nav-toggle ${cls}`,
+          className: `ppg-item-wrapper ${cls}`,
           children: buf.map((child, idx) => {
             const isBig = buf.length === 5 && idx === 0;
             const reverse = isBig && fiveCount % 2 === 0;
@@ -577,8 +580,7 @@ function EditComponent({
       onMenuLoad: handleMenuLoad,
       onCategorySelect: handleCategorySelect
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      id: "folio",
-      className: "target-container",
+      className: "ppg-wrapper",
       style: {
         paddingLeft: paddingLeftRight,
         paddingRight: paddingLeftRight,
@@ -586,7 +588,7 @@ function EditComponent({
         paddingBottom: paddingBottom
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        className: "folio-wrapper",
+        className: "ppg-container",
         children: posts.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No posts found.', 'pentablocktheme')
         }) : renderFolioContainers(posts)

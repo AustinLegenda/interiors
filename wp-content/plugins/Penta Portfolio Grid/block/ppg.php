@@ -47,11 +47,11 @@ if (empty($all_ids)) {
 
 <div id="work"></div>
 
-<div class="cat-menu-container-work ">
-  <nav class="folio-menu-container" aria-label="Category Menu">
+<div class="ppg-menu-wrapper">
+  <nav class="ppg-menu-container" aria-label="Category Menu">
     <ul>
       <li>
-        <a class="cat-menu-item" data-category="" href="#">
+        <a class="ppg-menu-item" data-category="" href="#">
           <h5>All</h5>
         </a>
       </li>
@@ -60,7 +60,7 @@ if (empty($all_ids)) {
         $cat_id = (int) $item->object_id;
       ?>
         <li>
-          <a class="cat-menu-item" data-category="<?php echo $cat_id; ?>" href="#">
+          <a class="ppg-menu-item" data-category="<?php echo $cat_id; ?>" href="#">
             <h5><?php echo esc_html($item->title); ?></h5>
           </a>
         </li>
@@ -71,10 +71,10 @@ if (empty($all_ids)) {
 
 <!-- Posts Container -->
 
-<div id="folio" class=" target-container" style="<?php echo $container_style; ?>">
+<div class="ppg-wrapper" style="<?php echo $container_style; ?>">
   <!-- AJAX Target Container -->
-  <div class="folio-wrapper">
-    <div class="folio-container nav-toggle">
+  <div class="ppg-container">
+    <div class="ppg-item-wrapper">
       <?php
       $x = 0;
       // 1) Build your dynamic post type list:
@@ -108,9 +108,9 @@ if (empty($all_ids)) {
         $objectPositionStyle = "object-position: {$objectPositionX}% {$objectPositionY}%;";
 
         // Output the post thumbnail with the inline style for object position.
-        echo '<div class="item-folio">';
-        echo '<div class="folio-snippet">';
-        echo '<a class="folio-els-container" href="' . get_the_permalink() . '">';
+        echo '<div class="ppg-item-size">';
+        echo '<div class="ppg-item-container">';
+        echo '<a class="ppg-item" href="' . get_the_permalink() . '">';
         // Get the post thumbnail HTML.
         $thumbHTML = get_the_post_thumbnail(get_the_ID(), 'large');
         if ($thumbHTML) {
@@ -118,7 +118,7 @@ if (empty($all_ids)) {
           $thumbHTML = str_replace('<img', '<img style="width:100%; height:100%; object-fit:cover; ' . $objectPositionStyle . '"', $thumbHTML);
           echo $thumbHTML;
         }
-        echo '<div class="folio-intro">';
+        echo '<div class="ppg-item-title">';
         echo '<h4 style="color:' . $textColor . '; margin:0;">' . get_the_title() . '</h4>';
         echo '</div>';
         echo '</a>';
@@ -127,7 +127,7 @@ if (empty($all_ids)) {
 
         // Handle closing/opening of container groups as needed...
         if (($currentIndex + 1) % 5 === 0) {
-          echo '</div><div class="folio-container nav-toggle">';
+          echo '</div><div class="ppg-item-wrapper">';
         }
       endwhile;
       wp_reset_postdata();
