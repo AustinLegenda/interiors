@@ -14,5 +14,5 @@ jobs:
         server: ftp.legenda.co
         username: austin@legenda.co
         password: ${{ secrets.ITS_A_SECRET }}
-        timeout: 190000
+        timeout: 1900000
       
