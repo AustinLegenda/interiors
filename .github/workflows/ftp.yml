@@ -1,20 +1,16 @@
-name: FTP Test
-
-on:
-  push:
-    branches: [main]
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
-    name: 🚀 Deploy website every commit
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v4
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
 
-      - name: 📂 Sync files
-        uses: ./
-        with:
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
           server: ftp.legenda.co
           username:  austin@legenda.co
           password: ${{ secrets.ftp_password }}
