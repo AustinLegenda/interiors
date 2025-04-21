@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 <!-- Category Navigation -->
-
 <div id="work"></div>
 <div class="cat-menu-container-work main-grid-full">
     <ul>
