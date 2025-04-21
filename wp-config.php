@@ -67,23 +67,23 @@ $table_prefix = 'wp3o_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( ‘WP_DEBUG’, true );
+define( 'WP_DEBUG', true );
 
 if ( WP_DEBUG ) {
 
         @error_reporting( E_ALL );
 
-        @ini_set( ‘log_errors’, true );
+        @ini_set( 'log_errors', true );
 
-        @ini_set( ‘log_errors_max_len’, ‘0’ );
+        @ini_set( 'log_errors_max_len', '0' );
 
-        define( ‘WP_DEBUG_LOG’, true );
+        define( 'WP_DEBUG_LOG', true );
 
-        define( ‘WP_DEBUG_DISPLAY’, false );
+        define( 'WP_DEBUG_DISPLAY', false );
 
-        define( ‘CONCATENATE_SCRIPTS’, false );
+        define( 'CONCATENATE_SCRIPTS', false );
 
-        define( ‘SAVEQUERIES’, true );
+        define( 'SAVEQUERIES', true );
 
 }
 
@@ -95,5 +95,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Sets up WordPress vars and included files. */
-define('CONCATENATE_SCRIPTS', false); 
 require_once ABSPATH . 'wp-settings.php';
