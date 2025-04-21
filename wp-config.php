@@ -81,8 +81,6 @@ if ( WP_DEBUG ) {
 
         define( 'WP_DEBUG_DISPLAY', false );
 
-        define( 'CONCATENATE_SCRIPTS', false );
-
         define( 'SAVEQUERIES', true );
 
 }
@@ -95,4 +93,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Sets up WordPress vars and included files. */
+define( 'CONCATENATE_SCRIPTS', false );
 require_once ABSPATH . 'wp-settings.php';
