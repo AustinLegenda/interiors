@@ -485,11 +485,14 @@
     if (window.DEARFLIP && window.DEARFLIP.getPDFThumb) getPDFThumb = window.DEARFLIP.getPDFThumb;
     if (getPDFThumb !== void 0) {
       thumbSrcInput = $("#dflip_pdf_thumb");
-      thumbAutoButton = $("<a href='#' class='df-button button button-secondary auto-thumb' data-condition='dflip_pdf_source:contains(http)'>Auto Generate PDF Thumb</a>").appendTo(thumbSrcInput.parent())
+      var isAttachment = $("body").hasClass("post-type-attachment");
+      var thumb_condition = isAttachment ? "" : " data-condition='dflip_pdf_source:contains(http)'";
+      thumbAutoButton = $("<a href='#' class='df-button button button-secondary auto-thumb' "+thumb_condition+">Auto Generate PDF Thumb</a>").appendTo(thumbSrcInput.parent())
         .on("click", function (e) {
           e.preventDefault();
+          var pdf_URL = isAttachment ? $("#attachment_url").val() : $("#dflip_pdf_source").val()
           getPDFThumb({
-            pdfURL: $("#dflip_pdf_source").val(),
+            pdfURL: pdf_URL,
             updateInfo: updateThumbProgress,
             callback: updateThumb
           });
@@ -648,6 +651,9 @@
 
       dragEnable(outlineBox, ".outline-wrapper");
     }
+
+    jQuery('#menu-posts-dflip a[href="https://dearflip.com/go/wp-lite-upgrade-menu"]').addClass("df-upgrade-menu").attr("target","_blank");
+
   });
 
   function revalidateArray(array, scan) {

@@ -1,10 +1,10 @@
 === WP Super Cache ===
 Contributors: donncha, automattic, adnan007, dilirity, mikemayhem3030, pyronaur, thingalon
 Tags: performance, caching, wp-cache, wp-super-cache, cache
-Requires at least: 6.4
-Requires PHP: 7.0
-Tested up to: 6.5
-Stable tag: 1.12.1
+Requires at least: 6.6
+Requires PHP: 7.2
+Tested up to: 6.7.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -268,14 +268,10 @@ Your theme is probably responsive which means it resizes the page to suit whatev
 
 
 == Changelog ==
-### 1.12.1 - 2024-05-09
+### 2.0.1 - 2025-04-04
 #### Changed
-- General: update WordPress version requirements to WordPress 6.4.
-- General: use wp_admin_notice function introduced in WP 6.4 to display notices.
-
-#### Fixed
-- Fix the CDN functionality when cache is disabled
-- Do not define DONOTCACHEPAGE if it is already defined
+- Code: Use function-style `exit()` and `die()` with a default status code of 0.
+- Update package dependencies.
 
 --------
 

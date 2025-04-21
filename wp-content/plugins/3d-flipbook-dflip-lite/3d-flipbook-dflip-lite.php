@@ -4,7 +4,7 @@
  * Plugin Name: 3D FlipBook : Dflip Lite
  * Description: Realistic 3D Flip-books for WordPress <a href="https://dearflip.com/go/wp-lite-full-version" >Get Full Version Here</a><strong> NOTE : Deactivate this lite version before activating Full Version</strong>
  *
- * Version: 2.2.32
+ * Version: 2.3.65
  *
  * Text Domain: 3d-flipbook-dflip-lite
  * Author: DearHive
@@ -28,7 +28,7 @@ if ( !class_exists( 'DFlip' ) ) {
    * @author  Deepak Ghimire
    */
   class DFlip {
-    
+
     /**
      * Holds the singleton class object.
      *
@@ -37,7 +37,7 @@ if ( !class_exists( 'DFlip' ) ) {
      * @var object
      */
     public static $instance;
-    
+
     /**
      * Plugin version
      *
@@ -45,8 +45,8 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      * @var string
      */
-    public $version = '2.2.32';
-    
+    public $version = '2.3.65';
+
     /**
      * The name of the plugin.
      *
@@ -54,8 +54,8 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      * @var string
      */
-    public $plugin_name = 'dFLip';
-    
+    public $plugin_name = 'dFlip';
+
     /**
      * Unique plugin slug identifier.
      *
@@ -64,10 +64,6 @@ if ( !class_exists( 'DFlip' ) ) {
      * @var string
      */
     public $plugin_slug = 'dflip';
-    /*used for slug in future url */
-    public $plugin_type = 'flip book';
-    
-    public $plugin_tags = 'flip book,,pdf flip book,,html5 flip book,flip book pdf,pdf to flip book,wordpress flip book,3d flip book,jquery flip book,flip book html5';
     public $settings_help_page = 'https://dearflip.com/docs/dearflip-wordpress/features/settings/';
     public $plugin_url = "https://wordpress.org/plugins/3d-flipbook-dflip-lite/";
     /**
@@ -78,7 +74,7 @@ if ( !class_exists( 'DFlip' ) ) {
      * @var string
      */
     public $file = __FILE__;
-    
+
     /**
      * Default values.
      *
@@ -87,7 +83,7 @@ if ( !class_exists( 'DFlip' ) ) {
      * @var string
      */
     public $defaults;
-    
+
     /**
      * Primary class constructor.
      *
@@ -95,24 +91,25 @@ if ( !class_exists( 'DFlip' ) ) {
      */
     public $settings_text;
     public $external_translate;
+    public $selective_script_loading;
     public function __construct() {
-      
+
       $this->settings_text = array();
       $this->external_translate = false;
       // Load the plugin.
       add_action( 'init', array( $this, 'init' ), 0 );
-      
+
     }
-    
+
     /**
      * Loads the plugin into WordPress.
      *
      * @since 1.0.0
      */
     public function init() {
-      
+
       $this->defaults = array(
-          
+
           'text_toggle_sound'      => __( "Turn on/off Sound", '3d-flipbook-dflip-lite' ),
           'text_toggle_thumbnails' => __( "Toggle Thumbnails", '3d-flipbook-dflip-lite' ),
           'text_toggle_outline'    => __( "Toggle Outline/Bookmark", '3d-flipbook-dflip-lite' ),
@@ -131,7 +128,7 @@ if ( !class_exists( 'DFlip' ) ) {
           'text_mail_subject'      => __( "I wanted you to see this FlipBook", '3d-flipbook-dflip-lite' ),
           'text_mail_body'         => __( "Check out this site {{url}}", '3d-flipbook-dflip-lite' ),
           'text_loading'           => __( "DearFlip: Loading ", '3d-flipbook-dflip-lite' ),
-          
+
           'external_translate' => array(
               'std'     => 'false',
           ),
@@ -327,7 +324,7 @@ if ( !class_exists( 'DFlip' ) ) {
               'title'   => __( 'Page Mode', '3d-flipbook-dflip-lite' ),
               'desc'    => __( 'Choose whether you want single mode or double page mode. Recommended Auto', '3d-flipbook-dflip-lite' ),
           ),
-          
+
           'page_size'         => array(
               'std'     => '0',
               'choices' => array(
@@ -383,15 +380,15 @@ if ( !class_exists( 'DFlip' ) ) {
           'share_prefix'      => array(
               'std'         => "flipbook-",
           ),
-          
+
           'share_slug' => array(
               'std'     => 'false',
           ),
-          
+
           'attachment_lightbox' => array(
               'std'     => 'false',
           ),
-          
+
           'range_size' => array(
               'std'     => '524288',
           ),
@@ -406,7 +403,7 @@ if ( !class_exists( 'DFlip' ) ) {
               'title'   => __( 'Enable AutoPlay', '3d-flipbook-dflip-lite' ),
               'desc'    => __( 'Enable AutoPlay in Flipbook', '3d-flipbook-dflip-lite' ),
           ),
-          
+
           'autoplay_start'    => array(
               'std'     => 'false',
               'choices' => array(
@@ -428,105 +425,130 @@ if ( !class_exists( 'DFlip' ) ) {
           ),
           'pages'             => array()
       );
-      
+      $this->defaults['viewerType']                = array(
+        'std'     => 'flipbook',
+        'choices' => array(
+          'global'   => __( 'Global Setting', 'DFLIP' ),
+          'reader'   => __( 'Vertical Reader', 'DFLIP' ),
+          'flipbook' => __( 'Flipbook', 'DFLIP' ),
+          'slider'   => __( 'Slider', 'DFLIP' )
+        ),
+        'title'   => __( 'Viewer Type', 'DFLIP' ),
+        'desc'    => __( 'Choose the Viewer Type. Flipbook or normal viewer', 'DFLIP' )
+      );
+
+      $this->defaults['selectiveScriptLoading'] = array(
+        'std'     => 'false',
+        'choices' => array(
+          'true'  => 'True (Enable)',
+          'false' => 'False (Disable)',
+        ),
+        'title'   => 'Selective Script Loading',
+        'desc'    => 'Load Scripts only on pages where shortcodes are added. May not work properly in AJAX based themes. Also clear your CACHE PLUGIN CACHE!',
+      );
+
+      $this->selective_script_loading = $this->get_config( 'selectiveScriptLoading' ) == "true";
+      $external_translate = $this->get_config( 'external_translate' );
+      $this->external_translate = $external_translate == "true";
+
+
       // Load admin only components.
       if ( is_admin() && !wp_doing_ajax() ) {
         $this->init_admin();
       } else { // Load frontend only components.
         $this->init_front();
       }
-      
+
       // Load global components.
       $this->init_global();
-      
+
     }
-    
+
     /**
      * Loads all admin related files into scope.
      *
      * @since 1.0.0
      */
     public function init_admin() {
-      
+
+      include_once( dirname( __FILE__ ) . '/inc/settings.php' );
+
       //include the metaboxes file
       include_once dirname( __FILE__ ) . "/inc/metaboxes.php";
-      
+
     }
-    
+
     /**
      * Loads all frontend user related files
      *
      * @since 1.0.0
      */
     public function init_front() {
-      
+
       //include the shortcode parser
       include_once dirname( __FILE__ ) . "/inc/shortcode.php";
-      
+
       //include the scripts and styles for front end
       add_action( 'wp_enqueue_scripts', array( $this, 'init_front_scripts' ) );
-      
+
       //some custom js that need to be passed
       add_action( 'wp_print_footer_scripts', array( $this, 'hook_script' ) );
-      
+
     }
-    
+
     /**
      * Loads all global files into scope.
      *
      * @since 1.0.0
      */
     public function init_global() {
-      
+
       //include the post-type that manages the custom post
       include_once dirname( __FILE__ ) . '/inc/post-type.php';
-      
+
     }
-    
+
     /**
      * Loads all script and style sheets for frontend into scope.
      *
      * @since 1.0.0
      */
     public function init_front_scripts() {
-      
+
       //register scripts and style
       wp_register_script( $this->plugin_slug . '-script', plugins_url( 'assets/js/dflip.min.js', __FILE__ ), array( "jquery" ), $this->version, true );
       wp_register_style( $this->plugin_slug . '-style', plugins_url( 'assets/css/dflip.min.css', __FILE__ ), array(), $this->version );
-      
-      
+
+      if ( $this->selective_script_loading != true ) {
         //enqueue scripts and style
       wp_enqueue_script( $this->plugin_slug . '-script' );
       wp_enqueue_style( $this->plugin_slug . '-style' );
-      
-      
+      }
+
     }
-    
+
     public function add_defer_attribute( $tag, $handle ) {
       // add script handles to the array below
       //cache for plugin_slug
       $_slug = $this->plugin_slug;
       $scripts_to_defer = array( 'jquery-core', $_slug . '-script', $_slug . '-parse-script' );
-      
+
       foreach ( $scripts_to_defer as $defer_script ) {
         if ( $defer_script === $handle ) {
           return str_replace( ' src', ' data-cfasync="false" src', $tag );
         }
       }
-      
+
       return $tag;
     }
-    
+
     /**
      * Registers a javascript variable into HTML DOM for url access
      *
      * @since 1.0.0
      */
     public function hook_script() {
-      
-      $external_translate = $this->get_config( 'external_translate' );
-      $this->external_translate = $external_translate == "true";
-      
+
       $data = array(
           'text'             => array(
               'toggleSound'      => $this->get_translate( 'text_toggle_sound' ),
@@ -548,6 +570,7 @@ if ( !class_exists( 'DFlip' ) ) {
               'mailBody'         => $this->get_translate( 'text_mail_body' ),
               'loading'          => $this->get_translate( 'text_loading' )
           ),
+          'viewerType'       => $this->get_config( 'viewerType' ),
           'moreControls'     => $this->get_config( 'more_controls' ),
           'hideControls'     => $this->get_config( 'hide_controls' ),
           'scrollWheel'      => $this->get_config( 'scroll_wheel' ),
@@ -579,13 +602,13 @@ if ( !class_exists( 'DFlip' ) ) {
           'linkTarget'       => $this->get_config( 'link_target' ),
           'sharePrefix'      => $this->get_config( 'share_prefix' )
       );
-      
+
       //registers a variable that stores the location of plugin
       $output = '<script data-cfasync="false"> var dFlipLocation = "' . plugins_url( 'assets/', __FILE__ ) . '"; var dFlipWPGlobal = ' . json_encode( $data ) . ';</script>';
       echo $output;
-      
+
     }
-    
+
     /**
      * Helper method for retrieving config values.
      *
@@ -596,26 +619,26 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      */
     public function get_config( $key ) {
-      
-      //$values = is_multisite() ? get_blog_option( null, '_dflip_settings', true ) : get_option( '_dflip_settings', true );
-      $value = $this->get_default( $key );//isset( $values[ $key ] ) ? $values[ $key ] : '';
-      
+
+      $values = is_multisite() ? get_blog_option( null, '_dflip_settings', true ) : get_option( '_dflip_settings', true );
+      $value = isset( $values[ $key ] ) ? $values[ $key ] : '';
+
       $default = $this->get_default( $key );
-      
+
       /* set standard value */
       if ( $default !== null ) {
         $value = $this->filter_std_value( $value, $default );
       }
-      
+
       return $value;
-      
+
     }
-    
+
     public function get_global_config( $key ) {
       return $this->get_config( $key );
     }
-    
-    
+
+
     /**
      * Helper method for retrieving global check values.
      *
@@ -626,15 +649,15 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      */
     public function global_config( $key ) {//todo name is not proper
-      
+
       $global_value = $this->get_global_config( $key );
       $value = isset( $this->defaults[ $key ] ) ? is_array( $this->defaults[ $key ] ) ? isset( $this->defaults[ $key ]['choices'][ $global_value ] )
           ? $this->defaults[ $key ]['choices'][ $global_value ] : $global_value : $global_value : $global_value;
-      
+
       return $value;
-      
+
     }
-    
+
     public function get_translate( $key ) {
       if ( $this->external_translate == true ) {
         return $this->get_default( $key );
@@ -642,7 +665,7 @@ if ( !class_exists( 'DFlip' ) ) {
         return $this->get_config( $key );
       }
     }
-    
+
     /**
      * Helper method for retrieving default values.
      *
@@ -653,13 +676,13 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      */
     public function get_default( $key ) {
-      
+
       $default = isset( $this->defaults[ $key ] ) ? is_array( $this->defaults[ $key ] ) ? isset( $this->defaults[ $key ]['std'] ) ? $this->defaults[ $key ]['std'] : '' : $this->defaults[ $key ] : '';
-      
+
       return $default;
-      
+
     }
-    
+
     /**
      * Helper function to filter standard option values.
      *
@@ -672,55 +695,34 @@ if ( !class_exists( 'DFlip' ) ) {
      * @since     1.0.0
      */
     public function filter_std_value( $value = '', $std = '' ) {
-      
+
       $std = maybe_unserialize( $std );
-      
+
       if ( is_array( $value ) && is_array( $std ) ) {
-        
+
         foreach ( $value as $k => $v ) {
-          
+
           if ( '' === $value[ $k ] && isset( $std[ $k ] ) ) {
-            
+
             $value[ $k ] = $std[ $k ];
-            
+
           }
-          
+
         }
-        
+
       } else {
         if ( '' === $value && $std !== null ) {
-          
+
           $value = $std;
-          
+
         }
       }
-      
+
       return $value;
-      
+
     }
-    
-    /*Generates help link for the given post id based on the options selected*/
-    public function get_help_link( $post_id ) {
-      try {
-        $text = $this->plugin_type;
-        $tags = explode( ",", str_replace( $text, "", $this->plugin_tags ) );
-        //        var_dump($tags);
-        $tags_len = count( $tags );
-        $fix = trim( $tags[ $post_id % $tags_len ] );
-        if ( $post_id % 2 > 0 ) {
-          $text = str_replace( " ", "", $text );
-        }
-        $text = ( strpos( $fix, "to" ) > 0 || $post_id % 4 < 2 ) ? $text = $fix . " " . $text : $text = $text . " " . $fix;
-        if ( $post_id % 7 < 2 ) {
-          $text .= " plugin";
-        }
-        
-        return trim( $text );
-      } catch ( Exception $ex ) {
-        return $this->plugin_type;
-      }
-    }
-    
+
+
     /**
      * Helper function to create settings boxes
      *
@@ -736,12 +738,12 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      */
     public function create_setting( $key, $setting = null, $value = null, $global_key = null, $global_value = '' ) {
-      
+
       $slug = $this->plugin_slug;
       $setting = is_null( $setting ) ? $this->defaults[ $key ] : $setting;
       if ( is_null( $setting ) ) {
         echo "<!--    " . esc_html( $key ) . " Not found   -->";
-        
+
         return;
       }
       $type = isset( $setting['type'] ) ? $setting['type'] : '';
@@ -756,31 +758,31 @@ if ( !class_exists( 'DFlip' ) ) {
       }
       $global_attr = !is_null( $global_key ) ? $global_key : "";
       $global_face_value = $global_value;
-      
+
       echo '<div id="' . $slug . '_' . esc_attr( $key ) . '_box" class="df-box ' . esc_attr( $class ) . '" data-condition="' . esc_attr( $condition ) . '">
       <div class="df-label"><label for="' . $slug . '_' . esc_attr( $key ) . '" >
 				' . esc_attr( $title ) . '
 			</label></div>';
       echo '<div class="df-option">';
       if ( isset( $setting['choices'] ) && is_array( $setting['choices'] ) ) {
-        
+
         echo '<div class="df-select">
 				<select name="_' . $slug . '[' . esc_attr( $key ) . ']" id="' . $slug . '_' . esc_attr( $key ) . '" class="" data-global="' . esc_attr( $global_attr ) . '">';
-        
+
         /** @noinspection PhpCastIsUnnecessaryInspection */
         foreach ( (array) $setting['choices'] as $val => $label ) {
-          
+
           if ( is_null( $global_key ) && $val === "global" ) {
             continue;
           }
-          
+
           echo '<option value="' . esc_attr( $val ) . '" ' . selected( $value, $val, false ) . '>' . esc_attr( $label ) . '</option>';
-          
+
           //				}
         }
         echo '</select>';
         $global_face_value = $this->global_config( $key );
-        
+
       } else if ( $type == 'upload' ) {
         $tooltip = isset( $setting['button-tooltip'] ) ? $setting['button-tooltip'] : 'Select';
         $button_text = isset( $setting['button-text'] ) ? $setting['button-text'] : 'Select';
@@ -793,24 +795,24 @@ if ( !class_exists( 'DFlip' ) ) {
 				   title="' . esc_attr( $tooltip ) . '">
 					' . esc_attr( $button_text ) . '
 				</a>';
-      
+
       } else if ( $type == 'textarea' ) {
         echo '<div class="">
 				<textarea rows="3" cols="40" name="_' . $slug . '[' . esc_attr( $key ) . ']" id="' . $slug . '_' . esc_attr( $key ) . '"
 				          class="" data-global="' . esc_attr( $global_attr ) . '">' . esc_attr( $value ) . '</textarea>';
       } else {
         $attrHTML = ' ';
-        
+
         if ( isset( $setting['attr'] ) ) {
           foreach ( $setting['attr'] as $attr_key => $attr_value ) {
             $attrHTML .= $attr_key . "=" . $attr_value . " ";
           }
         }
-        
+
         echo '<div class="">
 				<input  placeholder="' . esc_attr( $placeholder ) . '" value="' . esc_attr( $value ) . '" type="' . esc_attr( $type ) . '" ' . esc_attr( $attrHTML ) . ' name="_' . $slug . '[' . esc_attr( $key ) . ']" id="' . $slug . '_' . esc_attr( $key ) . '" class="" data-global="' . esc_attr( $global_attr ) . '"/>';
       }
-      
+
       if ( !is_null( $global_key ) ) {
         echo '<div class="df-global-value" data-global-value="' . esc_attr( $global_value ) . '"><i>Default:</i>
 					<code>' . esc_attr( $global_face_value ) . '</code></div>';
@@ -821,8 +823,9 @@ if ( !class_exists( 'DFlip' ) ) {
 				<a class="df-help-link" target="_blank" href="' . $this->settings_help_page . '#' . esc_attr( strtolower( $key ) ) . '">More Info >> </a>
 			</div></div>
 		</div>';
-    
+
     }
+    
     
     public function dflip_lite_check() {
       if ( is_admin() ) {
@@ -831,25 +834,25 @@ if ( !class_exists( 'DFlip' ) ) {
         }
       }
     }
-    
+
     public function dflip_lite_check_notice() {
-      
+
       ?>
         <div class="update-nag notice">
             <p>dFlip Lite version is also active. Disable lite version to use dFlip Full Version.</p>
         </div>
       <?php
-      
+
     }
-    
+
     function is_plugin_active( $plugin ) {
       return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
     }
-    
+
     public function create_separator( $title = '' ) {
       echo '<div class="df-box df-box-separator">' . $title . '</div>';
     }
-    
+
     /**
      * Returns the singleton instance of the class.
      *
@@ -858,17 +861,17 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      */
     public static function get_instance() {
-      
+
       if ( !isset( self::$instance ) && !( self::$instance instanceof DFlip ) ) {
         self::$instance = new DFlip();
       }
-      
+
       return self::$instance;
-      
+
     }
-    
+
   }
-  
+
   //Load the dFlip Plugin Class
   $dflip = DFlip::get_instance();
 }
